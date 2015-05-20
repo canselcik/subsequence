@@ -1,9 +1,9 @@
-name := "subseq"
+name := "subsequence"
 
 
 version := "1.0"
 
-lazy val `subseq` = (project in file(".")).enablePlugins(play.PlayJava)
+lazy val subsequence = (project in file(".")).enablePlugins(play.PlayJava)
 
 scalaVersion := "2.11.1"
 
