@@ -5,9 +5,15 @@
 
 # Package Files #
 #*.jar
+target
+project/*
+project/
 target/
+target/*
 .idea/
 .settings/
+logs
+logs/*
 *.war
 *.ear
 
