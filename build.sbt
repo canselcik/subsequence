@@ -1,13 +1,14 @@
-name := "subsequence"
+name := """subsequence"""
 
+version := "1.0-SNAPSHOT"
 
-version := "1.0"
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
+scalaVersion := "2.11.6"
 
-lazy val subsequence = (project in file(".")).enablePlugins(play.PlayJava)
-
-
-
-scalaVersion := "2.11.1"
-
-libraryDependencies ++= Seq( javaJdbc , javaEbean , cache , javaWs )
+libraryDependencies ++= Seq(
+  javaJdbc,
+  javaEbean,
+  cache,
+  javaWs
+)
