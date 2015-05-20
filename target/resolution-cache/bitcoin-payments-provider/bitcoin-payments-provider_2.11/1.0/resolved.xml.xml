@@ -4,7 +4,7 @@
 		module="bitcoin-payments-provider_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20150519231102"
+		publication="20150520004258"
 	>
 		<description>
 		bitcoin-payments-provider
@@ -27,9 +27,7 @@
 	</configurations>
 	<publications>
 		<artifact name="bitcoin-payments-provider_2.11" type="pom" ext="pom" conf="pom"/>
-		<artifact name="bitcoin-payments-provider_2.11" type="jar" ext="jar" conf="compile"/>
-		<artifact name="bitcoin-payments-provider_2.11" type="src" ext="jar" conf="sources" e:classifier="sources"/>
-		<artifact name="bitcoin-payments-provider_2.11" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+		<artifact name="bitcoin-payments-provider_2.11" type="jar" ext="jar" conf="optional" e:classifier="resolveClassifiers, resolveSbtClassifiers"/>
 	</publications>
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.11.1" conf="scala-tool->default,optional(default)"/>

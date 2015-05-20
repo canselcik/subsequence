@@ -5,6 +5,9 @@
 
 # Package Files #
 #*.jar
+target/
+.idea/
+.settings/
 *.war
 *.ear
 

@@ -1,11 +1,11 @@
-[info] Updating {file:/Users/user/Desktop/bitcoin-payments-provider/project/}bitcoin-payments-provider-build...
-[debug] :: resolving dependencies :: default#bitcoin-payments-provider-build;0.1-SNAPSHOT
+[info] Updating {file:/Users/user/Desktop/subsequence/project/}subsequence-build...
+[debug] :: resolving dependencies :: default#subsequence-build;0.1-SNAPSHOT
 [debug] 	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool]
 [debug] 	validate = true
 [debug] 	refresh = false
 [debug] resolving dependencies for configuration 'compile'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
 [info] Resolving com.typesafe.play#sbt-plugin;2.3.8 ...
 [debug] sbt-chain: Checking cache for: dependency: com.typesafe.play#sbt-plugin;2.3.8 {compile=[default(compile)]}
 [debug] sbt-chain: module revision found in cache: com.typesafe.play#sbt-plugin;2.3.8
@@ -2337,9 +2337,9 @@
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.0 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.2 [compile->default(compile)]
 [debug] resolving dependencies for configuration 'runtime'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [runtime]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [runtime]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->runtime]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->compile]
@@ -3947,10 +3947,10 @@
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.0 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.2 [compile->default(compile)]
 [debug] resolving dependencies for configuration 'test'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [test]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [runtime]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [test]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [runtime]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->runtime]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->compile]
@@ -5558,12 +5558,12 @@
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.0 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.2 [compile->default(compile)]
 [debug] resolving dependencies for configuration 'provided'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [provided]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->default(compile)]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->runtime]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->master]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.5 [provided->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [provided]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->default(compile)]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->runtime]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->master]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.5 [provided->default(compile)]
 [info] Resolving org.scala-sbt#sbt;0.13.5 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scala-sbt#sbt;0.13.5 {provided=[default(compile)]}
 [debug] sbt-chain: module revision found in cache: org.scala-sbt#sbt;0.13.5
@@ -6094,11 +6094,11 @@
 [debug] == resolving dependencies org.scala-sbt#precompiled-2_9_3;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->master]
 [debug] == resolving dependencies org.scala-sbt#precompiled-2_9_3;0.13.5->org.scala-sbt#interface;0.13.5 [compile->default(compile)]
 [debug] resolving dependencies for configuration 'optional'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [optional]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [optional]
 [debug] resolving dependencies for configuration 'compile-internal'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile-internal]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile-internal]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->runtime]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->compile]
@@ -7705,13 +7705,13 @@
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe#webdriver_2.10;1.0.0 [compile->master]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.0 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.2 [compile->default(compile)]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [optional]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [provided]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->default(compile)]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->runtime]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->master]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.5 [provided->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [optional]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [provided]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->default(compile)]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->runtime]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->master]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.5 [provided->default(compile)]
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->default(compile)]
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->runtime]
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->compile]
@@ -8020,10 +8020,10 @@
 [debug] == resolving dependencies org.scala-sbt#precompiled-2_9_3;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->master]
 [debug] == resolving dependencies org.scala-sbt#precompiled-2_9_3;0.13.5->org.scala-sbt#interface;0.13.5 [compile->default(compile)]
 [debug] resolving dependencies for configuration 'runtime-internal'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [runtime-internal]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [runtime]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [runtime-internal]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [runtime]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->runtime]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->compile]
@@ -9630,13 +9630,13 @@
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe#webdriver_2.10;1.0.0 [compile->master]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.0 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.2 [compile->default(compile)]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [optional]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [optional]
 [debug] resolving dependencies for configuration 'test-internal'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [test-internal]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [test]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [runtime]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [test-internal]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [test]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [runtime]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->com.typesafe.play#sbt-plugin;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->runtime]
 [debug] == resolving dependencies com.typesafe.play#sbt-plugin;2.3.8->com.typesafe.play#routes-compiler_2.10;2.3.8 [compile->compile]
@@ -11243,13 +11243,13 @@
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe#webdriver_2.10;1.0.0 [compile->master]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.0 [compile->default(compile)]
 [debug] == resolving dependencies com.typesafe.sbt#sbt-webdriver;1.0.0->com.typesafe.sbt#sbt-web;1.0.2 [compile->default(compile)]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [optional]
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [provided]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->default(compile)]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->runtime]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->master]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.5 [provided->default(compile)]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [optional]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [provided]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->default(compile)]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->runtime]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [provided->master]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-sbt#sbt;0.13.5 [provided->default(compile)]
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->default(compile)]
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->runtime]
 [debug] == resolving dependencies org.scala-sbt#sbt;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->compile]
@@ -11558,18 +11558,18 @@
 [debug] == resolving dependencies org.scala-sbt#precompiled-2_9_3;0.13.5->org.scala-lang#scala-library;2.10.4 [compile->master]
 [debug] == resolving dependencies org.scala-sbt#precompiled-2_9_3;0.13.5->org.scala-sbt#interface;0.13.5 [compile->default(compile)]
 [debug] resolving dependencies for configuration 'plugin'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [plugin]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [plugin]
 [debug] resolving dependencies for configuration 'sources'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [sources]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [sources]
 [debug] resolving dependencies for configuration 'docs'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [docs]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [docs]
 [debug] resolving dependencies for configuration 'pom'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [pom]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [pom]
 [debug] resolving dependencies for configuration 'scala-tool'
-[debug] == resolving dependencies for default#bitcoin-payments-provider-build;0.1-SNAPSHOT [scala-tool]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->default]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->runtime]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->compile]
+[debug] == resolving dependencies for default#subsequence-build;0.1-SNAPSHOT [scala-tool]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->default]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->runtime]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->compile]
 [debug] == resolving dependencies org.scala-lang#scala-compiler;2.10.4->org.scala-lang#scala-library;2.10.4 [compile->master(*)]
 [debug] == resolving dependencies org.scala-lang#scala-compiler;2.10.4->org.scala-lang#scala-library;2.10.4 [compile->compile(*)]
 [debug] == resolving dependencies org.scala-lang#scala-compiler;2.10.4->org.scala-lang#scala-library;2.10.4 [compile->default]
@@ -11587,8 +11587,8 @@
 [debug] == resolving dependencies org.scala-lang#scala-compiler;2.10.4->org.scala-lang#scala-reflect;2.10.4 [runtime->compile]
 [debug] == resolving dependencies org.scala-lang#scala-reflect;2.10.4->org.scala-lang#scala-library;2.10.4 [runtime->runtime(*)]
 [debug] == resolving dependencies org.scala-lang#scala-reflect;2.10.4->org.scala-lang#scala-library;2.10.4 [runtime->compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->master]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->optional(default)]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->master]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-compiler;2.10.4 [scala-tool->optional(default)]
 [debug] == resolving dependencies org.scala-lang#scala-compiler;2.10.4->org.scala-lang#jline;2.10.4 [optional->master(*)]
 [info] Resolving org.scala-lang#jline;2.10.4 ...
 [debug] sbt-chain: Checking cache for: dependency: org.scala-lang#jline;2.10.4 {optional=[compile(*), master(*)]}
@@ -11603,11 +11603,11 @@
 [debug] 	typesafe-ivy-releases: revision in cache: org.fusesource.jansi#jansi;1.4
 [debug] 	found org.fusesource.jansi#jansi;1.4 in sbt-chain
 [debug] == resolving dependencies org.scala-lang#jline;2.10.4->org.fusesource.jansi#jansi;1.4 [compile->compile(*)]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->default]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->runtime]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->compile]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->master]
-[debug] == resolving dependencies default#bitcoin-payments-provider-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->optional(default)]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->default]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->runtime]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->compile]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->master]
+[debug] == resolving dependencies default#subsequence-build;0.1-SNAPSHOT->org.scala-lang#scala-library;2.10.4 [scala-tool->optional(default)]
 [debug] 	resolved ivy file produced in cache
 [debug] :: downloading artifacts ::
 [debug] 	[NOT REQUIRED] com.typesafe.play#sbt-plugin;2.3.8!sbt-plugin.jar
@@ -11779,19 +11779,19 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.5!apply-macro.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.4!jline.jar
 [debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar
-[debug] :: resolution report :: resolve 4983ms :: artifacts dl 126ms
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT compile produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-compile.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT runtime produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-runtime.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT test produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-test.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT provided produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-provided.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT optional produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-optional.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT compile-internal produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-compile-internal.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT runtime-internal produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-runtime-internal.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT test-internal produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-test-internal.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT plugin produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-plugin.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT sources produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-sources.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT docs produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-docs.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT pom produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-pom.xml
-[debug] 	report for default#bitcoin-payments-provider-build;0.1-SNAPSHOT scala-tool produced in /Users/user/Desktop/bitcoin-payments-provider/project/target/resolution-cache/reports/default-bitcoin-payments-provider-build-scala-tool.xml
-[debug] 	resolve done (4983ms resolve - 126ms download)
+[debug] :: resolution report :: resolve 5228ms :: artifacts dl 122ms
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT compile produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-compile.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT runtime produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-runtime.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT test produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-test.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT provided produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-provided.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT optional produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-optional.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT compile-internal produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-compile-internal.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT runtime-internal produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-runtime-internal.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT test-internal produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-test-internal.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT plugin produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-plugin.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT sources produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-sources.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT docs produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-docs.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT pom produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-pom.xml
+[debug] 	report for default#subsequence-build;0.1-SNAPSHOT scala-tool produced in /Users/user/Desktop/subsequence/project/target/resolution-cache/reports/default-subsequence-build-scala-tool.xml
+[debug] 	resolve done (5228ms resolve - 122ms download)
 [info] Done updating.
