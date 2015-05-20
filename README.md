@@ -1,5 +1,5 @@
 ![](https://raw.githubusercontent.com/canselcik/subsequence/master/logo.png)
-
+---
 - Subsequence simplifies accepting Bitcoin payments without relying on any third party service.
 - Scales horizontally, allows clustering users into different bitcoind instances
 - Keeps track of confirmed and unconfirmed user balances
