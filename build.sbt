@@ -1,9 +1,9 @@
-name := "bitcoin-payments-provider"
+name := "subsequence"
 
 
 version := "1.0"
 
-lazy val `bitcoin-payments-provider` = (project in file(".")).enablePlugins(PlayJava)
+lazy val `subsequence` = (project in file(".")).enablePlugins(PlayJava)
 
 scalaVersion := "2.11.1"
 
