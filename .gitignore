@@ -5,15 +5,13 @@
 
 # Package Files #
 #*.jar
-target
-project/*
 project/
 target/
-target/*
+test-2.11/
+app-2.11/
 .idea/
 .settings/
-logs
-logs/*
+logs/
 *.war
 *.ear
 
