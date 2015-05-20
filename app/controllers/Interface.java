@@ -69,13 +69,13 @@ public class Interface extends Controller {
 
     private static final ObjectMapper mapper = new ObjectMapper();
     public static Result getClusters(){
-        List<BitcoindClusters.ClusterInfo> clusters = BitcoindClusters.getClusters();
+        List<BitcoindClusters.ClusterInfo> clusters = BitcoindClusters.getBitcoindClusters();
         if(clusters == null)
             return internalServerError("An error occurred while fetching available clusters");
 
         ObjectNode root = mapper.createObjectNode();
         for(BitcoindClusters.ClusterInfo info : clusters)
-            root.put(info.id, info.connString);
+            root.put(String.valueOf(info.id), info.connString);
         return ok(root);
     }
 
