@@ -3,7 +3,10 @@ name := "subsequence"
 
 version := "1.0"
 
+
 lazy val subsequence = (project in file(".")).enablePlugins(play.PlayJava)
+
+
 
 scalaVersion := "2.11.1"
 
