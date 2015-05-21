@@ -209,7 +209,7 @@ public class Callbacks extends Controller {
     }
 
     public static Result txNotify(String payload) {
-        // TODO: Figure out a way to pick cluster, maybe picking at random might make sense.
+        // TODO: We need to always pick the local cluster because that's the only one that would be calling txNotify on us
         BitcoindInterface bi = BitcoindClusters.getClusterInterface(1);
         Transaction tx = bi.gettransaction(payload);
         String txType = tx.getCategory();

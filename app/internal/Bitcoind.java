@@ -12,7 +12,8 @@ import java.util.List;
 
 
 public class Bitcoind {
-    private static final BigDecimal TX_FEE = BigDecimal.valueOf(0.0001);
+    public static final BigDecimal TX_FEE = BigDecimal.valueOf(0.0001);
+    public static final Long TX_FEE_SAT = TX_FEE.multiply(BigDecimal.valueOf(100000000)).longValueExact();
     public static final int CONFIRM_AFTER = 1;
 
     public static class Pair<T, U> {

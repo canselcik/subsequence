@@ -7,6 +7,7 @@ GET        /account/:name                           controllers.Interface.getUse
 GET        /account/:name/transactions/:page        controllers.Interface.getTransactionsForUser(name : String, page : Integer)
 GET        /account/:name/addresses                 controllers.Interface.getAddressesForUser(name)
 GET        /account/:name/addresses/new             controllers.Interface.getNewAddressForUser(name)
+GET        /account/:name/withdraw/:amount/:address controllers.Interface.withdrawAmount(name : String, amount : Long, address : String)
 
 # Get cluster information
 GET        /clusters/list                           controllers.Interface.getClusters()
