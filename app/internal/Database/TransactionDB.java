@@ -1,5 +1,8 @@
 package internal.database;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.rpc.pojo.RawTransaction;
 import play.db.DB;
 
@@ -134,4 +137,36 @@ public class TransactionDB {
         }
     }
 
+    private static final ObjectMapper mapper = new ObjectMapper();
+    public static ArrayNode getTransactions(Long accountId){
+        Connection c = DB.getConnection();
+        try {
+            PreparedStatement ps =
+                    c.prepareStatement("SELECT * FROM transactions WHERE matched_user_id = ?");
+            ps.setLong(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            if(rs == null)
+                return null;
+
+            ArrayNode nodes = mapper.createArrayNode();
+            while(rs.next()){
+                ObjectNode root = mapper.createObjectNode();
+                root.put("internal_txid", rs.getLong("internal_txid"));
+                root.put("matched_user_id", rs.getLong("matched_user_id"));
+                root.put("inbound", rs.getBoolean("inbound"));
+                root.put("txhash", rs.getString("tx_hash"));
+                if(rs.getBoolean("inbound"))
+                    root.put("confirmed", rs.getBoolean("confirmed"));
+                root.put("satoshi_amount", rs.getLong("amount_satoshi"));
+                nodes.add(root);
+            }
+            c.close();
+            return nodes;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }

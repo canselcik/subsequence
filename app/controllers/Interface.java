@@ -1,6 +1,9 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import internal.database.ClusterDB;
+import internal.database.TransactionDB;
+import internal.database.UserDB;
 import internal.rpc.BitcoindInterface;
 import internal.rpc.pojo.Info;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,11 +45,13 @@ public class Interface extends Controller {
         }
     }
 
-    public static Result getTransactionsForUser(String name, Integer page) {
-        // TODO: We need to be returning the amount in satoshis, not BTC. Conversion required.
-        List<ObjectNode> txs = Bitcoind.getTransactions(name, page);
+    public static Result getTransactionsForUser(String name) {
+        long userId = UserDB.getIdFromAccountName(name);
+        if(userId < 0)
+            return internalServerError("User cannot be found");
+        ArrayNode txs = TransactionDB.getTransactions(userId);
         if(txs == null)
-            return internalServerError();
+            return internalServerError("Failed to fetch transactions");
         return ok(Json.toJson(txs));
     }
 

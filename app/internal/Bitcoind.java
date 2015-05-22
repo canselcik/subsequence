@@ -65,7 +65,7 @@ public class Bitcoind {
     }
 
     private static final ObjectMapper mapper = new ObjectMapper();
-    public static List<ObjectNode> getTransactions(String user, int page){
+    public static List<ObjectNode> getInboundTransactionsFromCluster(String user, int page){
         BitcoindInterface btcdInterface = BitcoindClusters.getInterface(user);
         if(btcdInterface == null)
             return null;
