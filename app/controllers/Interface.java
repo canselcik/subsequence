@@ -1,5 +1,6 @@
 package controllers;
 
+import internal.database.ClusterDB;
 import internal.rpc.BitcoindInterface;
 import internal.rpc.pojo.Info;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -72,12 +73,12 @@ public class Interface extends Controller {
 
     private static final ObjectMapper mapper = new ObjectMapper();
     public static Result getClusters(){
-        List<BitcoindClusters.ClusterInfo> clusters = BitcoindClusters.getBitcoindClusters();
+        List<ClusterDB.ClusterInfo> clusters = ClusterDB.getBitcoindClusters();
         if(clusters == null)
             return internalServerError("An error occurred while fetching available clusters");
 
         ObjectNode root = mapper.createObjectNode();
-        for(BitcoindClusters.ClusterInfo info : clusters)
+        for(ClusterDB.ClusterInfo info : clusters)
             root.put(String.valueOf(info.id), info.connString);
         return ok(root);
     }
