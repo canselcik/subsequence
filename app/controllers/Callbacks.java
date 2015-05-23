@@ -13,8 +13,9 @@ import java.math.BigDecimal;
 
 public class Callbacks extends Controller {
     public static Result txNotify(String payload) {
-        if(!request().remoteAddress().equals("127.0.0.1"))
-            return unauthorized("This endpoint can only reached through localhost");
+        //if(!request().remoteAddress().equals("127.0.0.1"))
+        //    return unauthorized("This endpoint can only reached through localhost");
+        System.out.println(request().remoteAddress());
 
         // We need to always pick the local cluster because that's the only one that would be calling txNotify on us
         BitcoindInterface bi = BitcoindNodes.getLocalNodeInferface();

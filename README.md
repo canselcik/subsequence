@@ -60,11 +60,80 @@ Content-Type: application/json; charset=utf-8
     "unconfirmed_satoshi_balance": 0
 }
 ```
-/accounts/<accountName>/transactions
-/accounts/<accountName>/addresses
-/accounts/<accountName>/addresses/new
+#### View Transactions for Account
+```json
+$ http http://ssnode0-stg/accounts/one/transactions
+HTTP/1.1 200 OK
+Content-Length: 588
+Content-Type: application/json; charset=utf-8
+
+[
+    {
+        "confirmed": true,
+        "inbound": true,
+        "internal_txid": 1,
+        "matched_user_id": 1,
+        "satoshi_amount": 790000,
+        "txhash": "373649ebb500d8e7a1142f14ba0ef444b621ef802cf02d08fd6f1f9a0e2ee208"
+    },
+    {
+        "inbound": false,
+        "internal_txid": 2,
+        "matched_user_id": 1,
+        "satoshi_amount": 290000,
+        "txhash": "d504563c1810081ecd918c203b223425903edb553d8ff1b0602c6236c447c439"
+    },
+    {
+        "confirmed": true,
+        "inbound": true,
+        "internal_txid": 3,
+        "matched_user_id": 1,
+        "satoshi_amount": 1,
+        "txhash": "internalTransaction - testing"
+    },
+    {
+        "inbound": false,
+        "internal_txid": 4,
+        "matched_user_id": 1,
+        "satoshi_amount": 1,
+        "txhash": "internalTransaction - testing chargeback"
+    }
+]
+```
+#### View Addresses for Account (creates account if account does not exist)
+```json
+$ http http://ssnode0-stg/accounts/one/addresses
+HTTP/1.1 200 OK
+Content-Length: 112
+Content-Type: application/json; charset=utf-8
+
+[
+    "1LJzsxKfksDoquSvwGVKCFj1cbPKjMwM7U",
+    "1G6MKBhExRBqHfDE2KNmcWFvWoLodQu7xP",
+    "1L4JaWFhPGmagjboGNkRxFkNyJZ5CHrdTH"
+]
+```
+#### Create a new Address for Account (creates account if account does not exist)
+```json
+$ http http://ssnode0-stg/accounts/one/addresses/new
+HTTP/1.1 200 OK
+Content-Length: 36
+Content-Type: application/json; charset=utf-8
+
+"166acuikhQeSrWfVw2a3n1m8XWxh5QYX84"
+```
+
 /accounts/<accountName>/withdraw/<amountSatoshisis>/<withdrawalAddress>
-/accounts/<accountName>/balance/<increment/decrement>/<amountSatoshis>/<description>
+
+#### Creating an internal transaction (to increment decrement user balance without broadcasting a transaction) 
+```json
+$ http http://size.cselcik.com:9000/accounts/one/balance/decrement/450000/testing%20chargeback                                                                                                                                   user@UMBP
+HTTP/1.1 200 OK
+Content-Length: 38
+Content-Type: text/plain; charset=utf-8
+
+User balance successfully updated to 0
+```
 
 /nodes
 /nodes/<nodeId>
