@@ -45,7 +45,8 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
 
 **Step 8:** Repeat step 5 and step 6. You'll notice that Subsequence is up and accessible through port 9000.
 
-### HTTP API Details (To be expanded...)
+### HTTP API Details
+
 #### View Account Information (including confirmed/unconfirmed balance) 
 ```json
 $ http http://ssnode0-stg/accounts/one
@@ -60,6 +61,7 @@ Content-Type: application/json; charset=utf-8
     "unconfirmed_satoshi_balance": 0
 }
 ```
+
 #### View Transactions for Account
 ```json
 $ http http://ssnode0-stg/accounts/one/transactions
@@ -100,6 +102,7 @@ Content-Type: application/json; charset=utf-8
     }
 ]
 ```
+
 #### View Addresses for Account (creates account if account does not exist)
 ```json
 $ http http://ssnode0-stg/accounts/one/addresses
@@ -113,6 +116,7 @@ Content-Type: application/json; charset=utf-8
     "1L4JaWFhPGmagjboGNkRxFkNyJZ5CHrdTH"
 ]
 ```
+
 #### Create a new Address for Account (creates account if account does not exist)
 ```json
 $ http http://ssnode0-stg/accounts/one/addresses/new
@@ -123,11 +127,15 @@ Content-Type: application/json; charset=utf-8
 "166acuikhQeSrWfVw2a3n1m8XWxh5QYX84"
 ```
 
-/accounts/<accountName>/withdraw/<amountSatoshisis>/<withdrawalAddress>
+#### Creating a withdrawal transaction
+```json
+$ http http://ssnode0-stg/accounts/one/withdraw/1750000/16XYJ2jRcp568YXT9ABEzSuE2JRjftEp9k
+```
+
 
 #### Creating an internal transaction (to increment decrement user balance without broadcasting a transaction) 
 ```json
-$ http http://size.cselcik.com:9000/accounts/one/balance/decrement/450000/testing%20chargeback                                                                                                                                   user@UMBP
+$ http http://ssnode0-stg/accounts/one/balance/decrement/450000/testing%20chargeback
 HTTP/1.1 200 OK
 Content-Length: 38
 Content-Type: text/plain; charset=utf-8
@@ -135,7 +143,18 @@ Content-Type: text/plain; charset=utf-8
 User balance successfully updated to 0
 ```
 
-/nodes
-/nodes/<nodeId>
-/nodes/<nodeId>/sweep/<sweepAddress>
+#### Listing all the Subsequence Nodes
+```json
+$ http http://ssnode0-stg/nodes
 ```
+
+#### Requesting the getinfo output from a Subsequence Node
+```json
+$ http http://ssnode0-stg/nodes/1
+```
+
+#### Sweeping all the funds in a Subsequence Node 
+```json
+$ http http://ssnode0-stg/nodes/1/sweep/16XYJ2jRcp568YXT9ABEzSuE2JRjftEp9k
+```
+
