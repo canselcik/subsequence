@@ -74,7 +74,7 @@ public class UserDB {
         }
     }
 
-    public static boolean writeClusterAssignmentToDB(String user, Integer clusterAssignment){
+    public static boolean writeNodeAssignmentToDB(String user, Integer clusterAssignment){
         Connection c = DB.getConnection();
         if(c == null)
             return false;
@@ -89,7 +89,7 @@ public class UserDB {
             int affectedRows = ps.executeUpdate();
             c.close();
             if(affectedRows != 1) return false;
-            return ClusterDB.incrementClusterAccountCount(clusterAssignment);
+            return NodeDB.incrementNodeAccountCount(clusterAssignment);
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

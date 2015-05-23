@@ -27,14 +27,14 @@ public class Bitcoind {
     }
 
     public static String getNewAddress(String user) {
-        BitcoindInterface btcdInterface = BitcoindClusters.getInterface(user);
+        BitcoindInterface btcdInterface = BitcoindNodes.getInterface(user);
         if(btcdInterface == null)
             return null;
         return btcdInterface.getnewaddress(user);
     }
 
     public static Pair<String, Long> sweepFunds(Integer id, String target) {
-        BitcoindInterface btcdInterface = BitcoindClusters.getClusterInterface(id);
+        BitcoindInterface btcdInterface = BitcoindNodes.getNodeInterface(id);
         if(btcdInterface == null)
             return new Pair<String, Long>("Cannot find cluster", -1l);
         BigDecimal clusterBalance = btcdInterface.getbalance();
@@ -51,22 +51,22 @@ public class Bitcoind {
     }
 
     public static Info getInfo(Integer clusterId){
-        BitcoindInterface btcdInterface = BitcoindClusters.getClusterInterface(clusterId);
+        BitcoindInterface btcdInterface = BitcoindNodes.getNodeInterface(clusterId);
         if(btcdInterface == null)
             return null;
         return btcdInterface.getinfo();
     }
 
     public static List<String> getAddresses(String user){
-        BitcoindInterface btcdInterface = BitcoindClusters.getInterface(user);
+        BitcoindInterface btcdInterface = BitcoindNodes.getInterface(user);
         if(btcdInterface == null)
             return null;
         return btcdInterface.getaddressesbyaccount(user);
     }
 
     private static final ObjectMapper mapper = new ObjectMapper();
-    public static List<ObjectNode> getInboundTransactionsFromCluster(String user, int page){
-        BitcoindInterface btcdInterface = BitcoindClusters.getInterface(user);
+    public static List<ObjectNode> getInboundTransactionsFromBitcoindNode(String user, int page){
+        BitcoindInterface btcdInterface = BitcoindNodes.getInterface(user);
         if(btcdInterface == null)
             return null;
         int count = 20;

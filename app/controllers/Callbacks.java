@@ -4,7 +4,7 @@ import internal.Bitcoind;
 import internal.rpc.BitcoindInterface;
 import internal.rpc.pojo.RawTransaction;
 import internal.rpc.pojo.Transaction;
-import internal.BitcoindClusters;
+import internal.BitcoindNodes;
 import internal.database.TransactionDB;
 import internal.database.UserDB;
 import play.mvc.*;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class Callbacks extends Controller {
     public static Result txNotify(String payload) {
         // We need to always pick the local cluster because that's the only one that would be calling txNotify on us
-        BitcoindInterface bi = BitcoindClusters.getLocalClusterInferface();
+        BitcoindInterface bi = BitcoindNodes.getLocalNodeInferface();
         Transaction tx = bi.gettransaction(payload);
         String txType = tx.getCategory();
         if(!txType.equals("receive"))

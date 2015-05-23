@@ -1,6 +1,6 @@
 package internal;
 
-import internal.database.ClusterDB;
+import internal.database.NodeDB;
 import internal.database.UserDB;
 import internal.rpc.BitcoindClientFactory;
 import internal.rpc.BitcoindInterface;
@@ -10,19 +10,19 @@ import play.Play;
 import java.net.URL;
 import java.util.List;
 
-public class BitcoindClusters {
-    public static int getClusterCount() {
-        List<ClusterDB.ClusterInfo> clusters = ClusterDB.getBitcoindClusters();
+public class BitcoindNodes {
+    public static int getNodeCount() {
+        List<NodeDB.BitcoindNodeInfo> clusters = NodeDB.getBitcoindNodes();
         if(clusters == null)
             return 0;
         return clusters.size();
     }
 
-    public static BitcoindInterface getClusterInterface(Integer clusterId){
-        List<ClusterDB.ClusterInfo> clusters = ClusterDB.getBitcoindClusters();
+    public static BitcoindInterface getNodeInterface(Integer clusterId){
+        List<NodeDB.BitcoindNodeInfo> clusters = NodeDB.getBitcoindNodes();
         if(clusters == null || clusters.size() == 0)
             return null;
-        for(ClusterDB.ClusterInfo i : clusters){
+        for(NodeDB.BitcoindNodeInfo i : clusters){
             if(i.id == clusterId)
                 return i.factory.getClient();
         }
@@ -30,7 +30,7 @@ public class BitcoindClusters {
     }
 
     private static BitcoindClientFactory localInterfaceFactory;
-    public static BitcoindInterface getLocalClusterInferface(){
+    public static BitcoindInterface getLocalNodeInferface(){
         if(localInterfaceFactory != null)
             return localInterfaceFactory.getClient();
         try {
@@ -49,12 +49,12 @@ public class BitcoindClusters {
     }
 
     public static BitcoindInterface getInterface(String user){
-        Integer assignment = ClusterDB.checkClusterAssignmentFromDB(user);
+        Integer assignment = NodeDB.checkNodeAssignmentFromDB(user);
         if(assignment != null)
-            return getClusterInterface(assignment);
+            return getNodeInterface(assignment);
 
-        ClusterDB.ClusterInfo leastOccupied = ClusterDB.findLeastOccupiedCluster();
-        boolean writeResult = UserDB.writeClusterAssignmentToDB(user, leastOccupied.id);
+        NodeDB.BitcoindNodeInfo leastOccupied = NodeDB.findLeastOccupiedBitcoindNode();
+        boolean writeResult = UserDB.writeNodeAssignmentToDB(user, leastOccupied.id);
         if(!writeResult)
             return null;
         else

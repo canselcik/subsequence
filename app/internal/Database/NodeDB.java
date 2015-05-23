@@ -11,13 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClusterDB {
-    public static class ClusterInfo {
+public class NodeDB {
+    public static class BitcoindNodeInfo {
         public int id;
         public String connString;
         public BitcoindClientFactory factory;
         public int accountCount;
-        public ClusterInfo(int id, String connString, BitcoindClientFactory factory, int accountCount){
+        public BitcoindNodeInfo(int id, String connString, BitcoindClientFactory factory, int accountCount){
             this.id = id;
             this.connString = connString;
             this.factory = factory;
@@ -25,16 +25,16 @@ public class ClusterDB {
         }
     }
 
-    public static ClusterInfo findLeastOccupiedCluster(){
-        List<ClusterInfo> clusters = getBitcoindClusters();
+    public static BitcoindNodeInfo findLeastOccupiedBitcoindNode(){
+        List<BitcoindNodeInfo> clusters = getBitcoindNodes();
         if(clusters == null || clusters.size() == 0)
             return null;
         return clusters.get(0);
     }
 
-    public static List<ClusterInfo> getBitcoindClusters(){
+    public static List<BitcoindNodeInfo> getBitcoindNodes(){
         Connection c = DB.getConnection();
-        List<ClusterInfo> clusters = new ArrayList<>();
+        List<BitcoindNodeInfo> clusters = new ArrayList<>();
         try {
             PreparedStatement ps = c.prepareStatement("SELECT id, conn_string, rpc_username, rpc_password, account_count FROM bitcoind_clusters ORDER BY account_count ASC");
             ResultSet rs = ps.executeQuery();
@@ -45,7 +45,7 @@ public class ClusterDB {
                 String rpcPassword = rs.getString("rpc_password");
                 Integer clusterSize = rs.getInt("account_count");
                 BitcoindClientFactory bcf = new BitcoindClientFactory(new URL(connString), rpcUsername, rpcPassword);
-                clusters.add( new ClusterInfo(id, connString, bcf, clusterSize) );
+                clusters.add( new BitcoindNodeInfo(id, connString, bcf, clusterSize) );
             }
             c.close();
         } catch (Exception e) {
@@ -54,7 +54,7 @@ public class ClusterDB {
         return clusters;
     }
 
-    public static boolean incrementClusterAccountCount(int clusterId){
+    public static boolean incrementNodeAccountCount(int clusterId){
         Connection c = DB.getConnection();
         if(c == null)
             return false;
@@ -71,7 +71,7 @@ public class ClusterDB {
         }
     }
 
-    public static Integer checkClusterAssignmentFromDB(String user){
+    public static Integer checkNodeAssignmentFromDB(String user){
         Connection c = DB.getConnection();
         if(c == null)
             return null;

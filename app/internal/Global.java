@@ -17,16 +17,16 @@ public class Global extends GlobalSettings {
             }
         }
 
-        Logger.error("Fetching the available clusters...");
-        int clusterCount = BitcoindClusters.getClusterCount();
+        Logger.error("Fetching the available Bitcoind nodes...");
+        int clusterCount = BitcoindNodes.getNodeCount();
         if(clusterCount == 0){
-            Logger.error("Found no clusters defined in your database. Exiting. Please restart after adding your clusters.");
+            Logger.error("Found no nodes defined in your database. Exiting. Please restart after adding your Bitcoind nodes.");
             System.exit(-1);
         }
         Logger.error("Found " + clusterCount + " clusters. Starting service...");
 
-        Logger.error("Checking if the local cluster (defined by environment vars) is up...");
-        BitcoindInterface localInterface = BitcoindClusters.getLocalClusterInferface();
+        Logger.error("Checking if the local bitcoind node (defined by environment vars) is up...");
+        BitcoindInterface localInterface = BitcoindNodes.getLocalNodeInferface();
         if(localInterface == null){
             Logger.error("Failed to connect to the local bitcoind instance... exiting.");
             System.exit(-1);

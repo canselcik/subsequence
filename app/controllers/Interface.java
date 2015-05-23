@@ -1,7 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import internal.database.ClusterDB;
+import internal.database.NodeDB;
 import internal.database.TransactionDB;
 import internal.database.UserDB;
 import internal.rpc.BitcoindInterface;
@@ -9,7 +9,7 @@ import internal.rpc.pojo.Info;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.Bitcoind;
-import internal.BitcoindClusters;
+import internal.BitcoindNodes;
 import play.db.DB;
 import play.libs.Json;
 import play.mvc.*;
@@ -69,7 +69,7 @@ public class Interface extends Controller {
         return ok(Json.toJson(address));
     }
 
-    public static Result getClusterStatus(Integer id) {
+    public static Result getNodeStatus(Integer id) {
         Info info = Bitcoind.getInfo(id);
         if(info == null)
             return internalServerError("An error occurred while querying the cluster.");
@@ -77,13 +77,13 @@ public class Interface extends Controller {
     }
 
     private static final ObjectMapper mapper = new ObjectMapper();
-    public static Result getClusters(){
-        List<ClusterDB.ClusterInfo> clusters = ClusterDB.getBitcoindClusters();
+    public static Result getNodes(){
+        List<NodeDB.BitcoindNodeInfo> clusters = NodeDB.getBitcoindNodes();
         if(clusters == null)
             return internalServerError("An error occurred while fetching available clusters");
 
         ObjectNode root = mapper.createObjectNode();
-        for(ClusterDB.ClusterInfo info : clusters)
+        for(NodeDB.BitcoindNodeInfo info : clusters)
             root.put(String.valueOf(info.id), info.connString);
         return ok(root);
     }
@@ -123,7 +123,7 @@ public class Interface extends Controller {
             }
 
             // Check if we have enough funds in the cluster that the user is assigned to.
-            BitcoindInterface bi = BitcoindClusters.getClusterInterface(clusterId);
+            BitcoindInterface bi = BitcoindNodes.getNodeInterface(clusterId);
             if(bi == null) {
                 c.close();
                 return internalServerError("Failed to contact the bitcoind instance to which the client is assigned.");
