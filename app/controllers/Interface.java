@@ -87,81 +87,51 @@ public class Interface extends Controller {
     }
 
     public static Result withdrawAmount(String name, long amount, String address) {
-        Connection c = DB.getConnection();
         try {
             // Fetch user account
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM account_holders WHERE account_name = ?");
-            ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
-            if(rs == null || !rs.next()) {
-                c.close();
-                return internalServerError("User not found");
-             }
+            ObjectNode user = UserDB.getUser(name);
+            if(user == null || user.has("error"))
+                return internalServerError("Unable to retrieve user information");
 
             // Check if user has enough funds
-            Long confirmedBalance = rs.getLong("confirmed_satoshi_balance");
-            Long userId = rs.getLong("account_id");
-            Integer clusterId = rs.getInt("cluster_id");
-            if( (amount + Bitcoind.TX_FEE_SAT) > confirmedBalance ){
-                c.close();
+            Long confirmedBalance = user.get("confirmed_satoshi_balance").asLong();
+            Long userId = user.get("account_id").asLong();
+            Integer clusterId = user.get("cluster_id").asInt();
+            if( (amount + Bitcoind.TX_FEE_SAT) > confirmedBalance )
                 return internalServerError("Insufficient confirmed balance");
-            }
 
             // Check if we have enough funds in the cluster that the user is assigned to.
             BitcoindInterface bi = BitcoindNodes.getNodeInterface(clusterId);
-            if(bi == null) {
-                c.close();
+            if(bi == null)
                 return internalServerError("Failed to contact the bitcoind instance to which the client is assigned.");
-            }
+
             BigDecimal balance = bi.getbalance();
-            if(balance == null){
-                c.close();
+            if(balance == null)
                 return internalServerError("Failed to contact the client's assigned bitcoind instance, got null balance for cluster");
-            }
 
             // Getting the balance for the cluster
             long amountWithFee = amount + Bitcoind.TX_FEE_SAT;
             BigDecimal amountToWithdrawInBTC = BigDecimal.valueOf(amount).divide( BigDecimal.valueOf(100000000) );
             BigDecimal amountToWithdrawInBTCwithFee = BigDecimal.valueOf(amountWithFee).divide( BigDecimal.valueOf(100000000) );
             // If the balance is less than the amount to be withdrawn + fee
-            if(balance.compareTo(amountToWithdrawInBTCwithFee) == -1){
-                c.close();
-                return internalServerError("The assigned cluster doesn't have the balance to allow this withdrawal. No withdrawal has been made");
-            }
+            if(balance.compareTo(amountToWithdrawInBTCwithFee) == -1)
+                return internalServerError("The assigned cluster doesn't have the balance to allow this withdrawal. No withdrawal has been made.");
 
             // Update user balance on record
-            PreparedStatement psBalanceUpdate =
-                    c.prepareStatement("UPDATE account_holders SET confirmed_satoshi_balance = confirmed_satoshi_balance - ? WHERE account_name = ?");
-            psBalanceUpdate.setLong(1, amountWithFee);
-            psBalanceUpdate.setString(2, name);
-            int res = psBalanceUpdate.executeUpdate();
-            if(res == 0) {
-                c.close();
+            boolean updateConfirmedBalanceSuccess = UserDB.updateUserBalance(userId, true, confirmedBalance - amountWithFee);
+            if(!updateConfirmedBalanceSuccess)
                 return internalServerError("Withdrawal failed due to a database error. Funds haven't been touched.");
-            }
 
             // Now we actually create and submit the tx
             String withdrawalTxId = bi.sendtoaddress(address, amountToWithdrawInBTC);
-            if(withdrawalTxId == null){
-                c.close();
+            if(withdrawalTxId == null)
                 return internalServerError("Failed to create the withdrawal transaction but subtracted user balance already");
-            }
 
-            // And create the transaction records
-            PreparedStatement txPs =
-                    c.prepareStatement("INSERT INTO transactions(matched_user_id, inbound, tx_hash, confirmed, amount_satoshi) VALUES(?, ?, ?, ?, ?) ");
-            txPs.setLong(1, userId);           // userid
-            txPs.setBoolean(2, false);         // outbound tx
-            txPs.setString(3, withdrawalTxId); // txhash for the created tx
-            txPs.setBoolean(4, false);         // tx not confirmed yet but we do not care about confirmation for outbound tx
-            txPs.setLong(5, amountWithFee);    // we note down the fee as an expense to the account as well
-            int affectedRows = txPs.executeUpdate();
-            c.close();
+            boolean insertTxSuccess = TransactionDB.insertTxIntoDB(withdrawalTxId, userId, false, false, amountWithFee);
 
-            if(affectedRows != 1)
+            if(!insertTxSuccess)
                 return internalServerError("Updated user balance and created withdrawal request but failed to add the tx to the DB <txid: " + withdrawalTxId + ">");
 
-            // Now we are all set and we can return the txid to the user
             return ok(withdrawalTxId);
         } catch(Exception e){
             e.printStackTrace();
