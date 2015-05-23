@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.Bitcoind;
 import internal.BitcoindNodes;
+import internal.rpc.pojo.Transaction;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -133,5 +134,46 @@ public class Interface extends Controller {
             e.printStackTrace();
             return internalServerError("An error occurred while fetching user information");
         }
+    }
+
+    public static Result incrementUserBalanceWithDescription(String name, long amount, String desc) {
+        ObjectNode userInfo = UserDB.getUser(name);
+        if(userInfo == null || userInfo.has("error"))
+            return internalServerError("Failed to retrieve the user");
+
+        Long accountId = userInfo.get("account_id").asLong();
+        Long confirmedBalance = userInfo.get("confirmed_satoshi_balance").asLong();
+
+        boolean txInsertResult = TransactionDB.insertTxIntoDB("internalTransaction - " + desc, accountId, true, true, amount);
+        if(!txInsertResult)
+            return internalServerError("Failed to create the internal transaction");
+
+        boolean updateUserBalanceResult = UserDB.updateUserBalance(accountId, true, amount + confirmedBalance);
+        if(!updateUserBalanceResult)
+            return internalServerError("Failed to update the user balance");
+
+        return ok("User balance successfully updated to " + (confirmedBalance + amount));
+    }
+
+    public static Result decrementUserBalanceWithDescription(String name, long amount, String desc) {
+        ObjectNode userInfo = UserDB.getUser(name);
+        if(userInfo == null || userInfo.has("error"))
+            return internalServerError("Failed to retrieve the user");
+
+        Long accountId = userInfo.get("account_id").asLong();
+        Long confirmedBalance = userInfo.get("confirmed_satoshi_balance").asLong();
+
+        if(confirmedBalance < amount)
+            return internalServerError("The user doesn't have high enough of a confirmed balance to complete this internal transaction");
+
+        boolean txInsertResult = TransactionDB.insertTxIntoDB("internalTransaction - " + desc, accountId, false, true, amount);
+        if(!txInsertResult)
+            return internalServerError("Failed to create the internal transaction");
+
+        boolean updateUserBalanceResult = UserDB.updateUserBalance(accountId, true, confirmedBalance - amount);
+        if(!updateUserBalanceResult)
+            return internalServerError("Failed to update the user balance");
+
+        return ok("User balance successfully updated to " + (confirmedBalance + amount));
     }
 }

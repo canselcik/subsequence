@@ -3,19 +3,21 @@
 # ~~~~
 
 # Get user information (including balance) by id and name
-GET        /accounts/:name                               controllers.Interface.getUser(name)
-GET        /accounts/:name/transactions                  controllers.Interface.getTransactionsForUser(name : String)
-GET        /accounts/:name/addresses                     controllers.Interface.getAddressesForUser(name)
-GET        /accounts/:name/addresses/new                 controllers.Interface.getNewAddressForUser(name)
-GET        /accounts/:name/withdraw/:amount/:address     controllers.Interface.withdrawAmount(name : String, amount : Long, address : String)
+GET        /accounts/:name                                        controllers.Interface.getUser(name)
+GET        /accounts/:name/transactions                           controllers.Interface.getTransactionsForUser(name : String)
+GET        /accounts/:name/addresses                              controllers.Interface.getAddressesForUser(name)
+GET        /accounts/:name/addresses/new                          controllers.Interface.getNewAddressForUser(name)
+GET        /accounts/:name/balance/increment/:amount/:desc        controllers.Interface.incrementUserBalanceWithDescription(name : String, amount : Long, desc : String)
+GET        /accounts/:name/balance/decrement/:amount/:desc        controllers.Interface.decrementUserBalanceWithDescription(name : String, amount : Long, desc : String)
+GET        /accounts/:name/withdraw/:amount/:address              controllers.Interface.withdrawAmount(name : String, amount : Long, address : String)
 
 # Get cluster information
-GET        /nodes                                        controllers.Interface.getNodes()
-GET        /nodes/:id                                    controllers.Interface.getNodeStatus(id : Integer)
+GET        /nodes                                                 controllers.Interface.getNodes()
+GET        /nodes/:id                                             controllers.Interface.getNodeStatus(id : Integer)
 
 # Sweep and send
-GET        /nodes/:id/sweep/:target                      controllers.Interface.sweepFunds(id : Integer, target : String)
+GET        /nodes/:id/sweep/:target                               controllers.Interface.sweepFunds(id : Integer, target : String)
 
 # Relevant TX notify and block notify
-GET        /callback/txnotify/:payload                   controllers.Callbacks.txNotify(payload : String)
-GET        /callback/blocknotify/:payload                controllers.Callbacks.blockNotify(payload : String)
+GET        /callback/txnotify/:payload                            controllers.Callbacks.txNotify(payload : String)
+GET        /callback/blocknotify/:payload                         controllers.Callbacks.blockNotify(payload : String)
