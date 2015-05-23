@@ -14,7 +14,7 @@ through the JSON-RPC API.
 ### Installation Instructions
 **Step 1:** Make sure you have Java 8 installed along with a PostgreSQL database set up.
 
-**Step 2:** Download and install Play 2 Framework from playframework.com. This guide will assume you're extracting Play
+**Step 2:** Download and install Play 2 Framework from `playframework.com`. This guide will assume you're extracting Play
 into your `$PATH`.
 
 **Step 3:** Subsequence uses the following environment variables to know how to communicate with the database and the
@@ -43,7 +43,7 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
               '<bitcoind-rpc-password>', 0);
 ```
 
-**Step 8:** Repeat step 5 and step 6. You'll notice that Subsequence is up and running.
+**Step 8:** Repeat step 5 and step 6. You'll notice that Subsequence is up and accessible through port 9000.
 
 ### HTTP API Details (To be expanded...)
 ```
