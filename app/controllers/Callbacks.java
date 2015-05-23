@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 
 public class Callbacks extends Controller {
     public static Result txNotify(String payload) {
+        if(!request().remoteAddress().equals("127.0.0.1"))
+            return unauthorized("This endpoint can only reached through localhost");
+
         // We need to always pick the local cluster because that's the only one that would be calling txNotify on us
         BitcoindInterface bi = BitcoindNodes.getLocalNodeInferface();
         Transaction tx = bi.gettransaction(payload);
@@ -24,7 +27,6 @@ public class Callbacks extends Controller {
         long confirmations = tx.getConfirmations();
         boolean confirmed = (confirmations >= Bitcoind.CONFIRM_AFTER);
         String account = tx.getAccount();
-        String address = tx.getAddress();
         BigDecimal amount = tx.getAmount();
         long relevantUserId = UserDB.getIdFromAccountName(account);
         long amountInSAT = amount.multiply(BigDecimal.valueOf(100000000)).longValueExact();
@@ -88,6 +90,9 @@ public class Callbacks extends Controller {
     }
 
     public static Result blockNotify(String payload) {
+        if(!request().remoteAddress().equals("127.0.0.1"))
+            return unauthorized("This endpoint can only reached through localhost");
+
         return ok("NOT IMPLEMENTED YET");
     }
 }
