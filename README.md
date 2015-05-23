@@ -48,6 +48,9 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
 
 ### HTTP API Details
 
+The following requests are made to the Subsequence Play Server that's hypothetically deployed on `ssnode0-stg` and
+listening for HTTP requests on port 80. These requests are referring to an imaginary user account named `one`. 
+
 #### View Account Information (including confirmed/unconfirmed balance) 
 ```json
 $ http http://ssnode0-stg/accounts/one
