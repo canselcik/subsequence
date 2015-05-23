@@ -11,7 +11,7 @@ public class CommonDB {
             Statement s = c.createStatement();
             s.addBatch("CREATE TABLE \"bitcoind_nodes\" (\"id\" serial PRIMARY KEY, \"conn_string\" TEXT, \"rpc_username\" TEXT, \"rpc_password\" TEXT, \"account_count\" int) WITH (OIDS=FALSE);");
             s.addBatch("CREATE TABLE \"account_holders\" (\"account_id\" bigserial PRIMARY KEY, \"account_name\" TEXT, \"node_id\" int, \"confirmed_satoshi_balance\" bigint, \"unconfirmed_satoshi_balance\" bigint) WITH (OIDS=FALSE);");
-            s.addBatch("ALTER TABLE \"account_holders\" ADD CONSTRAINT account_holders_fk0 FOREIGN KEY (cluster_id) REFERENCES bitcoind_clusters(id);");
+            s.addBatch("ALTER TABLE \"account_holders\" ADD CONSTRAINT account_holders_fk0 FOREIGN KEY (node_id) REFERENCES bitcoind_nodes(id);");
             s.addBatch("CREATE TABLE \"transactions\" (\"internal_txid\" bigserial PRIMARY KEY, \"matched_user_id\" bigint, \"inbound\" BOOLEAN, \"tx_hash\" TEXT UNIQUE, \"confirmed\" BOOLEAN, \"amount_satoshi\" bigint) WITH (OIDS=FALSE);");
             s.addBatch("ALTER TABLE \"transactions\" ADD CONSTRAINT transactions_fk0 FOREIGN KEY (matched_user_id) REFERENCES account_holders(account_id);");
             s.addBatch("CREATE TABLE \"used_txos\" (\"used_txo_id\" bigserial PRIMARY KEY, \"txo\" TEXT, \"new_txid\" TEXT ) WITH (OIDS=FALSE);");
