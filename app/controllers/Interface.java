@@ -174,6 +174,6 @@ public class Interface extends Controller {
         if(!updateUserBalanceResult)
             return internalServerError("Failed to update the user balance");
 
-        return ok("User balance successfully updated to " + (confirmedBalance + amount));
+        return ok("User balance successfully updated to " + (confirmedBalance - amount));
     }
 }
