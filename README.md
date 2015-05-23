@@ -46,15 +46,28 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
 **Step 8:** Repeat step 5 and step 6. You'll notice that Subsequence is up and accessible through port 9000.
 
 ### HTTP API Details (To be expanded...)
+#### View Account Information (including confirmed/unconfirmed balance) 
+```bash
+$ http http://ssnode0-stg/accounts/one
+HTTP/1.1 200 OK
+Content-Length: 116
+Content-Type: application/json; charset=utf-8
+
+{
+    "account_id": 1,
+    "account_name": "one",
+    "confirmed_satoshi_balance": 500000,
+    "node_id": 1,
+    "unconfirmed_satoshi_balance": 0
+}
 ```
-/accounts/:name
-/accounts/:name/transactions
-/accounts/:name/addresses
-/accounts/:name/addresses/new
-/accounts/:name/withdraw/:amount/:address
+/accounts/<accountName>/transactions
+/accounts/<accountName>/addresses
+/accounts/<accountName>/addresses/new
+/accounts/<accountName>/withdraw/<amountSatoshisis>/<withdrawalAddress>
+/accounts/<accountName>/balance/<increment/decrement>/<amountSatoshis>/<description>
 
 /nodes
-/nodes/:id
-
-/nodes/:id/sweep/:target
+/nodes/<nodeId>
+/nodes/<nodeId>/sweep/<sweepAddress>
 ```
