@@ -12,7 +12,7 @@ through the JSON-RPC API.
 ![](https://raw.githubusercontent.com/canselcik/subsequence/master/public/images/architecture.png)
 
 ### Installation Instructions
-1. Make sure you have Java 8 installed along with a PostgreSQL database.
+1. Make sure you have Java 8 installed along with a PostgreSQL database set up.
 2. Download and install Play 2 Framework from playframework.com. This guide will assume you're extracting Play
 into your `$PATH`.
 3. Subsequence uses the following environment variables to know how to communicate with the database and the
