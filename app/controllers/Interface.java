@@ -10,14 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.Bitcoind;
 import internal.BitcoindNodes;
-import play.db.DB;
 import play.libs.Json;
 import play.mvc.*;
-
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 public class Interface extends Controller {
