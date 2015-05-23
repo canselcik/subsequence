@@ -10,12 +10,12 @@ GET        /accounts/:name/addresses/new                 controllers.Interface.g
 GET        /accounts/:name/withdraw/:amount/:address     controllers.Interface.withdrawAmount(name : String, amount : Long, address : String)
 
 # Get cluster information
-GET        /nodes                                     controllers.Interface.getNodes()
-GET        /nodes/:id                                 controllers.Interface.getNodeStatus(id : Integer)
+GET        /nodes                                        controllers.Interface.getNodes()
+GET        /nodes/:id                                    controllers.Interface.getNodeStatus(id : Integer)
 
 # Sweep and send
-GET        /nodes/:id/sweep/:target                   controllers.Interface.sweepFunds(id : Integer, target : String)
+GET        /nodes/:id/sweep/:target                      controllers.Interface.sweepFunds(id : Integer, target : String)
 
 # Relevant TX notify and block notify
-GET        /callback/txnotify/:payload                  controllers.Callbacks.txNotify(payload : String)
-GET        /callback/blocknotify/:payload               controllers.Callbacks.blockNotify(payload : String)
+GET        /callback/txnotify/:payload                   controllers.Callbacks.txNotify(payload : String)
+GET        /callback/blocknotify/:payload                controllers.Callbacks.blockNotify(payload : String)
