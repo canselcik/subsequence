@@ -14,9 +14,9 @@ through the JSON-RPC API.
 ### Installation Instructions
 1. Make sure you have Java 8 installed along with a PostgreSQL database.
 2. Download and install Play 2 Framework from playframework.com. This guide will assume you're extracting Play
-into your $PATH.
+into your `$PATH`.
 3. Subsequence uses the following environment variables to know how to communicate with the database and the
-local bitcoind instance. Add the following into your bashrc/zshrc etc.:
+local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
 ```bash
 export SUBSEQ_DB_CONN_STRING="jdbc:postgresql://<database-hostname>:<port>/<database-name>"
 export SUBSEQ_DB_USER="<database-username>"
