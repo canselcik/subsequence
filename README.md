@@ -26,7 +26,7 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
     export SUBSEQ_DB_PASS="<database-password>"
     export SUBSEQ_LOCAL_BITCOIND_RPCCONNSTRING="http://<local-bitcoind-hostname-likely-localhost>:<port-likely-8332>"
     export SUBSEQ_LOCAL_BITCOIND_RPCUSER="<local-bitcoind-rpc-username>"
-    export SUBSEQ_LOCAL_BITCOIND_RPCPASS="<local-bitcoind-rpc-password"
+    export SUBSEQ_LOCAL_BITCOIND_RPCPASS="<local-bitcoind-rpc-password>"
 ```
 
 **Step 4:** Clone this repository and `cd subsequence`.
