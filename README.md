@@ -17,24 +17,24 @@ through the JSON-RPC API.
 into your `$PATH`.
 3. Subsequence uses the following environment variables to know how to communicate with the database and the
 local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
-    ```bash
+```bash
     export SUBSEQ_DB_CONN_STRING="jdbc:postgresql://<database-hostname>:<port>/<database-name>"
     export SUBSEQ_DB_USER="<database-username>"
     export SUBSEQ_DB_PASS="<database-password>"
     export SUBSEQ_LOCAL_BITCOIND_RPCCONNSTRING="http://<local-bitcoind-hostname-likely-localhost>:<port-likely-8332>"
     export SUBSEQ_LOCAL_BITCOIND_RPCUSER="<local-bitcoind-rpc-username>"
     export SUBSEQ_LOCAL_BITCOIND_RPCPASS="<local-bitcoind-rpc-password"
-    ```
+```
 4. Clone this repository and `cd subsequence`.
 5. Run `activator dist` to generate the production image, but we will run `sudo activator "run 80"` in `screen` for now to start Subsequence development mode.
 6. Make an HTTP request to the server. You'll see that it will initialize the schema but exit because it fails to find any bitcoind instances in the database.
 7. Run the following query on your PostgreSQL database for each and every one of your bitcoind instances:
-    ```sql
+```sql
     INSERT INTO bitcoind_nodes (conn_string, rpc_username, rpc_password, account_count) 
       VALUES ('http://<bitcoind-hostname>:<bitcoind-port>',
               '<bitcoind-rpc-username>',
               '<bitcoind-rpc-password>', 0);
-    ```
+```
 8. Repeat step 5 and step 6. You'll notice that Subsequence is up and running.
 
 ### HTTP API Details (To be expanded...)
