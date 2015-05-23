@@ -30,6 +30,7 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
 ```
 
 **Step 4:** Clone this repository and `cd subsequence`.
+
 **Step 5:** Run `activator dist` to generate the production image, but we will run `sudo activator "run 80"` in `screen` for now to start Subsequence development mode.
 
 **Step 6:** Make an HTTP request to the server. You'll see that it will initialize the schema but exit because it fails to find any bitcoind instances in the database.
