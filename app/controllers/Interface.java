@@ -92,7 +92,7 @@ public class Interface extends Controller {
             // Check if user has enough funds
             Long confirmedBalance = user.get("confirmed_satoshi_balance").asLong();
             Long userId = user.get("account_id").asLong();
-            Integer clusterId = user.get("cluster_id").asInt();
+            Integer clusterId = user.get("node_id").asInt();
             if( (amount + Bitcoind.TX_FEE_SAT) > confirmedBalance )
                 return internalServerError("Insufficient confirmed balance");
 

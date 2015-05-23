@@ -131,7 +131,7 @@ public class UserDB {
                 return root;
             }
             c.close();
-            root.put("user_id", rs.getLong("account_id"));
+            root.put("account_id", rs.getLong("account_id"));
             root.put("account_name", rs.getString("account_name"));
             root.put("node_id", rs.getLong("node_id"));
             root.put("confirmed_satoshi_balance", rs.getLong("confirmed_satoshi_balance"));
