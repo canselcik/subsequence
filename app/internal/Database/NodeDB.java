@@ -71,22 +71,4 @@ public class NodeDB {
         }
     }
 
-    public static Integer checkNodeAssignmentFromDB(String user){
-        Connection c = DB.getConnection();
-        if(c == null)
-            return null;
-        try {
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM account_holders WHERE account_name = ?");
-            ps.setString(1, user);
-            ResultSet rs = ps.executeQuery();
-            if(rs == null) return null;
-            if(!rs.next()) return null;
-            Integer result = rs.getInt("cluster_id");
-            c.close();
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

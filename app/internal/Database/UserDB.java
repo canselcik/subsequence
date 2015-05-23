@@ -1,5 +1,7 @@
 package internal.database;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.db.DB;
 
 import java.sql.Connection;
@@ -95,4 +97,52 @@ public class UserDB {
             return false;
         }
     }
+
+    public static Integer checkNodeAssignmentFromDB(String user){
+        Connection c = DB.getConnection();
+        if(c == null)
+            return null;
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM account_holders WHERE account_name = ?");
+            ps.setString(1, user);
+            ResultSet rs = ps.executeQuery();
+            if(rs == null) return null;
+            if(!rs.next()) return null;
+            Integer result = rs.getInt("cluster_id");
+            c.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static final ObjectMapper mapper = new ObjectMapper();
+    public static ObjectNode getUser(String name){
+        Connection c = DB.getConnection();
+        ObjectNode root = mapper.createObjectNode();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM account_holders WHERE account_name = ?");
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs == null || !rs.next()) {
+                c.close();
+                root.put("error", "User does not exist");
+                return root;
+            }
+            c.close();
+            root.put("user_id", rs.getLong("account_id"));
+            root.put("account_name", rs.getString("account_name"));
+            root.put("cluster_id", rs.getLong("cluster_id"));
+            root.put("confirmed_satoshi_balance", rs.getLong("confirmed_satoshi_balance"));
+            root.put("unconfirmed_satoshi_balance", rs.getLong("unconfirmed_satoshi_balance"));
+            return root;
+        } catch(Exception e){
+            e.printStackTrace();
+            root.put("error", "A database error occured, please try again later");
+            return root;
+        }
+    }
+
 }

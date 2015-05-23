@@ -49,7 +49,7 @@ public class BitcoindNodes {
     }
 
     public static BitcoindInterface getInterface(String user){
-        Integer assignment = NodeDB.checkNodeAssignmentFromDB(user);
+        Integer assignment = UserDB.checkNodeAssignmentFromDB(user);
         if(assignment != null)
             return getNodeInterface(assignment);
 

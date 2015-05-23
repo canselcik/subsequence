@@ -21,28 +21,13 @@ import java.sql.ResultSet;
 import java.util.List;
 
 public class Interface extends Controller {
-    public static Result getUser(String name) {
-        Connection c = DB.getConnection();
-        try {
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM account_holders WHERE account_name = ?");
-            ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
-            if(rs == null || !rs.next()) {
-                c.close();
-                return internalServerError("User not found");
-            }
-            c.close();
-            ObjectNode root = mapper.createObjectNode();
-            root.put("user_id", rs.getLong("account_id"));
-            root.put("account_name", rs.getString("account_name"));
-            root.put("cluster_id", rs.getLong("cluster_id"));
-            root.put("confirmed_satoshi_balance", rs.getLong("confirmed_satoshi_balance"));
-            root.put("unconfirmed_satoshi_balance", rs.getLong("unconfirmed_satoshi_balance"));
-            return ok(root);
-        } catch(Exception e){
-            e.printStackTrace();
-            return internalServerError("An error occurred while fetching user information");
-        }
+    public static Result getUser(String name){
+        ObjectNode res = UserDB.getUser(name);
+        if(res == null)
+            return internalServerError("Failed to get user information. Please try again later.");
+        if(res.has("error"))
+            return internalServerError(res);
+        return ok(res);
     }
 
     public static Result getTransactionsForUser(String name) {
@@ -76,7 +61,6 @@ public class Interface extends Controller {
         return ok(Json.toJson(info));
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
     public static Result getNodes(){
         List<NodeDB.BitcoindNodeInfo> clusters = NodeDB.getBitcoindNodes();
         if(clusters == null)
@@ -88,6 +72,7 @@ public class Interface extends Controller {
         return ok(root);
     }
 
+    private static final ObjectMapper mapper = new ObjectMapper();
     public static Result sweepFunds(Integer id, String target) {
         Bitcoind.Pair<String, Long> sweepResult = Bitcoind.sweepFunds(id, target);
         if(sweepResult == null)
