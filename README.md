@@ -130,6 +130,11 @@ Content-Type: application/json; charset=utf-8
 #### Creating a withdrawal transaction
 ```json
 $ http http://ssnode0-stg/accounts/one/withdraw/1750000/16XYJ2jRcp568YXT9ABEzSuE2JRjftEp9k
+HTTP/1.1 200 OK
+Content-Length: 64
+Content-Type: text/plain; charset=utf-8
+
+3215c80c163ccc50e6d3290fc5c284abf2166cae13cbad29d648db5715df0da2
 ```
 
 
@@ -146,15 +151,51 @@ User balance successfully updated to 0
 #### Listing all the Subsequence Nodes
 ```json
 $ http http://ssnode0-stg/nodes
+HTTP/1.1 200 OK
+Content-Length: 36
+Content-Type: application/json; charset=utf-8
+
+{
+    "1": "http://size.cselcik.com:8332"
+}
 ```
 
 #### Requesting the getinfo output from a Subsequence Node
 ```json
 $ http http://ssnode0-stg/nodes/1
+HTTP/1.1 200 OK
+Content-Length: 284
+Content-Type: application/json; charset=utf-8
+
+{
+    "balance": 0.0175,
+    "blocks": 357681,
+    "connections": 49,
+    "difficulty": 48807487244.68138,
+    "errors": "",
+    "keypoololdest": 1431642098,
+    "keypoolsize": 101,
+    "paytxfee": 0.0001,
+    "protocolversion": 70002,
+    "proxy": "",
+    "relayfee": 1e-05,
+    "testnet": false,
+    "timeoffset": -1,
+    "version": 100100,
+    "walletversion": 60000
+}
 ```
 
 #### Sweeping all the funds in a Subsequence Node 
 ```json
 $ http http://ssnode0-stg/nodes/1/sweep/16XYJ2jRcp568YXT9ABEzSuE2JRjftEp9k
+HTTP/1.1 200 OK
+Content-Length: 97
+Content-Type: application/json; charset=utf-8
+
+{
+    "satoshi_amount": 730000,
+    "tx": "51b96106d41e45f106c5947c224d115e586db25c2dad6343b2dd74e84127a97c"
+}
 ```
 
