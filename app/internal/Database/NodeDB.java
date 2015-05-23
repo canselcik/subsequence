@@ -36,7 +36,7 @@ public class NodeDB {
         Connection c = DB.getConnection();
         List<BitcoindNodeInfo> clusters = new ArrayList<>();
         try {
-            PreparedStatement ps = c.prepareStatement("SELECT id, conn_string, rpc_username, rpc_password, account_count FROM bitcoind_clusters ORDER BY account_count ASC");
+            PreparedStatement ps = c.prepareStatement("SELECT id, conn_string, rpc_username, rpc_password, account_count FROM bitcoind_nodes ORDER BY account_count ASC");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Integer id = rs.getInt("id");
@@ -59,7 +59,7 @@ public class NodeDB {
         if(c == null)
             return false;
         try {
-            PreparedStatement ps = c.prepareStatement("UPDATE bitcoind_clusters SET account_count = account_count+ 1 WHERE id = ?");
+            PreparedStatement ps = c.prepareStatement("UPDATE bitcoind_nodes SET account_count = account_count+ 1 WHERE id = ?");
             ps.setInt(1, clusterId);
             int affectedRows = ps.executeUpdate();
             c.close();
@@ -70,5 +70,4 @@ public class NodeDB {
             return false;
         }
     }
-
 }

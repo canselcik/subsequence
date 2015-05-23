@@ -82,8 +82,7 @@ public class UserDB {
             return false;
         try {
             PreparedStatement ps =
-                    c.prepareStatement("INSERT INTO account_holders" +
-                            "(account_name, cluster_id, confirmed_satoshi_balance, unconfirmed_satoshi_balance) VALUES(?, ?, ?, ?)");
+                    c.prepareStatement("INSERT INTO account_holders (account_name, node_id, confirmed_satoshi_balance, unconfirmed_satoshi_balance) VALUES(?, ?, ?, ?)");
             ps.setString(1, user);
             ps.setInt(2, clusterAssignment);
             ps.setLong(3, 0);
@@ -108,7 +107,7 @@ public class UserDB {
             ResultSet rs = ps.executeQuery();
             if(rs == null) return null;
             if(!rs.next()) return null;
-            Integer result = rs.getInt("cluster_id");
+            Integer result = rs.getInt("node_id");
             c.close();
             return result;
         } catch (SQLException e) {
@@ -134,7 +133,7 @@ public class UserDB {
             c.close();
             root.put("user_id", rs.getLong("account_id"));
             root.put("account_name", rs.getString("account_name"));
-            root.put("cluster_id", rs.getLong("cluster_id"));
+            root.put("node_id", rs.getLong("node_id"));
             root.put("confirmed_satoshi_balance", rs.getLong("confirmed_satoshi_balance"));
             root.put("unconfirmed_satoshi_balance", rs.getLong("unconfirmed_satoshi_balance"));
             return root;
@@ -144,5 +143,4 @@ public class UserDB {
             return root;
         }
     }
-
 }
