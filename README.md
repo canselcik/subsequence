@@ -157,7 +157,7 @@ Content-Length: 36
 Content-Type: application/json; charset=utf-8
 
 {
-    "1": "http://size.cselcik.com:8332"
+    "1": "http://ssnode0-stg:8332"
 }
 ```
 
