@@ -47,12 +47,13 @@ local bitcoind instance. Add the following into your `.bashrc`, `.zshrc`etc.:
 
 ### HTTP API Details (To be expanded...)
 #### View Account Information (including confirmed/unconfirmed balance) 
-```bash
-$ http http://ssnode0-stg/accounts/one
+```
+GET /accounts/one
+```
 HTTP/1.1 200 OK
 Content-Length: 116
 Content-Type: application/json; charset=utf-8
-
+```json
 {
     "account_id": 1,
     "account_name": "one",
