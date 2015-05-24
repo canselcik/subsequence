@@ -149,7 +149,9 @@ HTTP/1.1 200 OK
 Content-Length: 38
 Content-Type: text/plain; charset=utf-8
 
-User balance successfully updated to 0
+{ 
+    "confirmed_satoshi_balance": 120000
+}
 ```
 
 #### Listing all the Subsequence Nodes
