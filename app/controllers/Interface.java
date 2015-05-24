@@ -138,42 +138,60 @@ public class Interface extends Controller {
 
     public static Result incrementUserBalanceWithDescription(String name, long amount, String desc) {
         ObjectNode userInfo = UserDB.getUser(name);
-        if(userInfo == null || userInfo.has("error"))
-            return internalServerError("Failed to retrieve the user");
+        ObjectNode ret = mapper.createObjectNode();
+        if(userInfo == null || userInfo.has("error")) {
+            ret.put("error", "Failed to retrieve user");
+            return internalServerError(ret);
+        }
 
         Long accountId = userInfo.get("account_id").asLong();
         Long confirmedBalance = userInfo.get("confirmed_satoshi_balance").asLong();
 
         boolean txInsertResult = TransactionDB.insertTxIntoDB("internalTransaction - " + desc, accountId, true, true, amount);
-        if(!txInsertResult)
-            return internalServerError("Failed to create the internal transaction");
+        if(!txInsertResult) {
+            ret.put("error", "Failed to create the internal transaction");
+            return internalServerError(ret);
+        }
 
         boolean updateUserBalanceResult = UserDB.updateUserBalance(accountId, true, amount + confirmedBalance);
-        if(!updateUserBalanceResult)
-            return internalServerError("Failed to update the user balance");
+        if(!updateUserBalanceResult) {
+            ret.put("error", "Failed to update user balance");
+            return internalServerError(ret);
+        }
 
-        return ok("User balance successfully updated to " + (confirmedBalance + amount));
+        ret.put("confirmed_satoshi_balance", confirmedBalance + amount);
+        return ok(ret);
     }
 
     public static Result decrementUserBalanceWithDescription(String name, long amount, String desc) {
         ObjectNode userInfo = UserDB.getUser(name);
-        if(userInfo == null || userInfo.has("error"))
-            return internalServerError("Failed to retrieve the user");
+        ObjectNode ret = mapper.createObjectNode();
+        if(userInfo == null || userInfo.has("error")) {
+            ret.put("error", "Failed to retrieve user");
+            return internalServerError(ret);
+        }
 
         Long accountId = userInfo.get("account_id").asLong();
         Long confirmedBalance = userInfo.get("confirmed_satoshi_balance").asLong();
 
-        if(confirmedBalance < amount)
-            return internalServerError("The user doesn't have high enough of a confirmed balance to complete this internal transaction");
+        if(confirmedBalance < amount){
+            ret.put("error", "The user doesn't have high enough of a confirmed balance to complete this internal transaction.");
+            return internalServerError(ret);
+        }
 
         boolean txInsertResult = TransactionDB.insertTxIntoDB("internalTransaction - " + desc, accountId, false, true, amount);
-        if(!txInsertResult)
-            return internalServerError("Failed to create the internal transaction");
+        if(!txInsertResult) {
+            ret.put("error", "Failed to create the internal transaction\"");
+            return internalServerError(ret);
+        }
 
         boolean updateUserBalanceResult = UserDB.updateUserBalance(accountId, true, confirmedBalance - amount);
-        if(!updateUserBalanceResult)
-            return internalServerError("Failed to update the user balance");
+        if(!updateUserBalanceResult) {
+            ret.put("error", "Failed to update the user balance");
+            return internalServerError(ret);
+        }
 
-        return ok("User balance successfully updated to " + (confirmedBalance - amount));
+        ret.put("confirmed_satoshi_balance", confirmedBalance - amount);
+        return ok(ret);
     }
 }
