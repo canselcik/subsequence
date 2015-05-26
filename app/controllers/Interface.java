@@ -85,6 +85,10 @@ public class Interface extends Controller {
 
     public static Result withdrawAmount(String name, long amount, String address) {
         try {
+            // Checking if the withdrawal amount is zero
+            if(amount == 0)
+                return internalServerError("You cannot withdraw zero Bitcoins");
+
             // Fetch user account
             ObjectNode user = UserDB.getUser(name);
             if(user == null || user.has("error"))
