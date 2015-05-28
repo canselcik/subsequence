@@ -112,10 +112,9 @@ public class TransactionDB {
         }
     }
 
-    public static boolean addTxInputsToDB(RawTransaction tx) {
-        if(tx == null)
+    public static boolean addTxInputsToDB(List<String> inputTxIds, String parentTx) {
+        if(inputTxIds == null)
             return false;
-        List<String> inputTxIds = tx.extractInputTxIds();
         if(inputTxIds.size() == 0)
             return false;
 
@@ -124,7 +123,7 @@ public class TransactionDB {
             for(String txid : inputTxIds){
                 PreparedStatement ps = conn.prepareStatement("INSERT INTO used_txos (txo, new_txid) VALUES (?, ?)");
                 ps.setString(1, txid);
-                ps.setString(2, tx.getTxid());
+                ps.setString(2, parentTx);
                 int res = ps.executeUpdate();
                 if(res == 0)
                     return false;
