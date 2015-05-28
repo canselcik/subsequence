@@ -21,3 +21,5 @@ GET        /nodes/:id/sweep/:target                               controllers.In
 # Relevant TX notify and block notify
 GET        /callback/txnotify/:payload                            controllers.Callbacks.txNotify(payload : String)
 GET        /callback/blocknotify/:payload                         controllers.Callbacks.blockNotify(payload : String)
+
+GET        /captcha                                               controllers.Interface.generateCaptcha()

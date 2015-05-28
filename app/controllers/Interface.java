@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import internal.CaptchaGenerator;
 import internal.database.NodeDB;
 import internal.database.TransactionDB;
 import internal.database.UserDB;
@@ -10,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.Bitcoind;
 import internal.BitcoindNodes;
-import internal.rpc.pojo.Transaction;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -197,5 +197,11 @@ public class Interface extends Controller {
 
         ret.put("confirmed_satoshi_balance", confirmedBalance - amount);
         return ok(ret);
+    }
+
+
+    public static Result generateCaptcha() {
+        CaptchaGenerator.CaptchaPackage p = CaptchaGenerator.next();
+        return ok(p.captcha).as("image/jpg");
     }
 }
