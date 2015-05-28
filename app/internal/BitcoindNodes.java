@@ -54,6 +54,9 @@ public class BitcoindNodes {
             return getNodeInterface(assignment);
 
         NodeDB.BitcoindNodeInfo leastOccupied = NodeDB.findLeastOccupiedBitcoindNode();
+        if(leastOccupied == null)
+            return null;
+
         boolean writeResult = UserDB.writeNodeAssignmentToDB(user, leastOccupied.id);
         if(!writeResult)
             return null;

@@ -39,8 +39,11 @@ public class Interface extends Controller {
 
     public static Result getAddressesForUser(String name) {
         List<String> addresses = Bitcoind.getAddresses(name);
-        if(addresses == null)
-            return internalServerError();
+        if(addresses == null) {
+            ObjectNode res = mapper.createObjectNode();
+            res.put("error", "Failed to get addresses for the user. Bitcoind instance might be down.");
+            return internalServerError(res);
+        }
         return ok(Json.toJson(addresses));
     }
 
@@ -53,8 +56,11 @@ public class Interface extends Controller {
 
     public static Result getNodeStatus(Integer id) {
         Info info = Bitcoind.getInfo(id);
-        if(info == null)
-            return internalServerError("An error occurred while querying the cluster.");
+        if(info == null) {
+            ObjectNode res = mapper.createObjectNode();
+            res.put("error", "An error occurred while querying the cluster.");
+            return internalServerError(res);
+        }
         return ok(Json.toJson(info));
     }
 
@@ -71,73 +77,91 @@ public class Interface extends Controller {
 
     private static final ObjectMapper mapper = new ObjectMapper();
     public static Result sweepFunds(Integer id, String target) {
-        Bitcoind.Pair<String, Long> sweepResult = Bitcoind.sweepFunds(id, target);
-        if(sweepResult == null)
-            return internalServerError("An error occurred while sweeping funds");
-        if(sweepResult.u == -1l)
-            return internalServerError(sweepResult.t);
-
         ObjectNode root = mapper.createObjectNode();
+        Bitcoind.Pair<String, Long> sweepResult = Bitcoind.sweepFunds(id, target);
+        if(sweepResult == null) {
+            root.put("error", "An error occurred while sweeping funds");
+            return internalServerError(root);
+        }
+        if(sweepResult.u == -1l) {
+            root.put("error", sweepResult.t);
+            return internalServerError(root);
+        }
+
         root.put("tx", sweepResult.t);
         root.put("satoshi_amount", sweepResult.u);
         return ok(root);
     }
 
     public static Result withdrawAmount(String name, long amount, String address) {
-        try {
-            // Checking if the withdrawal amount is zero
-            if(amount == 0)
-                return internalServerError("You cannot withdraw zero Bitcoins");
-
-            // Fetch user account
-            ObjectNode user = UserDB.getUser(name);
-            if(user == null || user.has("error"))
-                return internalServerError("Unable to retrieve user information");
-
-            // Check if user has enough funds
-            Long confirmedBalance = user.get("confirmed_satoshi_balance").asLong();
-            Long userId = user.get("account_id").asLong();
-            Integer clusterId = user.get("node_id").asInt();
-            if( (amount + Bitcoind.TX_FEE_SAT) > confirmedBalance )
-                return internalServerError("Insufficient confirmed balance");
-
-            // Check if we have enough funds in the cluster that the user is assigned to.
-            BitcoindInterface bi = BitcoindNodes.getNodeInterface(clusterId);
-            if(bi == null)
-                return internalServerError("Failed to contact the bitcoind instance to which the client is assigned.");
-
-            BigDecimal balance = bi.getbalance();
-            if(balance == null)
-                return internalServerError("Failed to contact the client's assigned bitcoind instance, got null balance for cluster");
-
-            // Getting the balance for the cluster
-            long amountWithFee = amount + Bitcoind.TX_FEE_SAT;
-            BigDecimal amountToWithdrawInBTC = BigDecimal.valueOf(amount).divide( BigDecimal.valueOf(100000000) );
-            BigDecimal amountToWithdrawInBTCwithFee = BigDecimal.valueOf(amountWithFee).divide( BigDecimal.valueOf(100000000) );
-            // If the balance is less than the amount to be withdrawn + fee
-            if(balance.compareTo(amountToWithdrawInBTCwithFee) == -1)
-                return internalServerError("The assigned cluster doesn't have the balance to allow this withdrawal. No withdrawal has been made.");
-
-            // Update user balance on record
-            boolean updateConfirmedBalanceSuccess = UserDB.updateUserBalance(userId, true, confirmedBalance - amountWithFee);
-            if(!updateConfirmedBalanceSuccess)
-                return internalServerError("Withdrawal failed due to a database error. Funds haven't been touched.");
-
-            // Now we actually create and submit the tx
-            String withdrawalTxId = bi.sendtoaddress(address, amountToWithdrawInBTC);
-            if(withdrawalTxId == null)
-                return internalServerError("Failed to create the withdrawal transaction but subtracted user balance already");
-
-            boolean insertTxSuccess = TransactionDB.insertTxIntoDB(withdrawalTxId, userId, false, false, amountWithFee);
-
-            if(!insertTxSuccess)
-                return internalServerError("Updated user balance and created withdrawal request but failed to add the tx to the DB <txid: " + withdrawalTxId + ">");
-
-            return ok(withdrawalTxId);
-        } catch(Exception e){
-            e.printStackTrace();
-            return internalServerError("An error occurred while fetching user information");
+        ObjectNode root = mapper.createObjectNode();
+        // Checking if the withdrawal amount is zero
+        if(amount == 0){
+            root.put("error", "You cannot withdraw zero SAT");
+            return internalServerError(root);
         }
+
+        // Fetch user account
+        ObjectNode user = UserDB.getUser(name);
+        if(user == null || user.has("error")){
+            root.put("error", "Unable to retrieve user information");
+            return internalServerError(root);
+        }
+
+        // Check if user has enough funds
+        Long confirmedBalance = user.get("confirmed_satoshi_balance").asLong();
+        Long userId = user.get("account_id").asLong();
+        Integer clusterId = user.get("node_id").asInt();
+        if( (amount + Bitcoind.TX_FEE_SAT) > confirmedBalance )
+            return internalServerError("Insufficient confirmed balance");
+
+        // Check if we have enough funds in the cluster that the user is assigned to.
+        BitcoindInterface bi = BitcoindNodes.getNodeInterface(clusterId);
+        if(bi == null){
+            root.put("error", "Failed to contact the bitcoind instance to which the client is assigned.");
+            return internalServerError(root);
+        }
+
+        BigDecimal balance = bi.getbalance();
+        if(balance == null) {
+            root.put("error", "Failed to contact the client's assigned bitcoind instance, got null balance for cluster");
+            return internalServerError(root);
+        }
+
+        // Getting the balance for the cluster
+        long amountWithFee = amount + Bitcoind.TX_FEE_SAT;
+        BigDecimal amountToWithdrawInBTC = BigDecimal.valueOf(amount).divide( BigDecimal.valueOf(100000000) );
+        BigDecimal amountToWithdrawInBTCwithFee = BigDecimal.valueOf(amountWithFee).divide( BigDecimal.valueOf(100000000) );
+        // If the balance is less than the amount to be withdrawn + fee
+        if(balance.compareTo(amountToWithdrawInBTCwithFee) == -1){
+            root.put("error", "The assigned cluster doesn't have the balance to allow this withdrawal. No withdrawal has been made.");
+            return internalServerError(root);
+        }
+
+        // Update user balance on record
+        boolean updateConfirmedBalanceSuccess = UserDB.updateUserBalance(userId, true, confirmedBalance - amountWithFee);
+        if(!updateConfirmedBalanceSuccess){
+            root.put("error", "Withdrawal failed due to a database error. Funds haven't been touched.");
+            return internalServerError(root);
+        }
+
+        // Now we actually create and submit the tx
+        String withdrawalTxId = bi.sendtoaddress(address, amountToWithdrawInBTC);
+        if(withdrawalTxId == null) {
+            root.put("error", "Failed to create the withdrawal transaction but subtracted user balance already");
+            return internalServerError(root);
+        }
+
+        boolean insertTxSuccess = TransactionDB.insertTxIntoDB(withdrawalTxId, userId, false, false, amountWithFee);
+
+        if(!insertTxSuccess) {
+            root.put("error", "Updated user balance and created withdrawal request but failed to add the tx to the DB <txid: " +
+                    withdrawalTxId + ">");
+            return internalServerError(root);
+        }
+
+        root.put("txid", withdrawalTxId);
+        return ok(root);
     }
 
     public static Result incrementUserBalanceWithDescription(String name, long amount, String desc) {
