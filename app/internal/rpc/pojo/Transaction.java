@@ -1,8 +1,10 @@
 package internal.rpc.pojo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -70,19 +72,6 @@ public class Transaction {
 		return this;
 	}
 
-	public String getCategory() {
-		if(details == null || details.size() == 0)
-			return null;
-		String categoryString = null;
-		for(TransactionDetails d : details){
-			if(categoryString == null)
-				categoryString = d.getCategory();
-			else if(!categoryString.equals(d.getCategory()))
-				return null;
-		}
-		return categoryString;
-	}
-
 	public long getConfirmations() {
 		return confirmations;
 	}
@@ -104,17 +93,26 @@ public class Transaction {
 		return addrString;
 	}
 
-	public String getAccount() {
+	public class Deposit {
+		public final String account;
+		public final BigDecimal amount;
+		public Deposit(String account, BigDecimal amount) {
+			this.account = account;
+			this.amount = amount;
+		}
+	}
+	public List<Deposit> extractDeposits(){
 		if(details == null || details.size() == 0)
 			return null;
-		String accountString = null;
+		List<Deposit> deposits = new ArrayList<>();
 		for(TransactionDetails d : details){
-			if(accountString == null)
-				accountString = d.getAccount();
-			else if(!accountString.equals(d.getAccount()))
-				return null;
+			if(!d.getCategory().equals("receive"))
+				continue;
+			String acc = d.getAccount();
+			BigDecimal amount = d.getAmount();
+			deposits.add(new Deposit(acc, amount));
 		}
-		return accountString;
+		return deposits;
 	}
 
 	public String getTxid() {
