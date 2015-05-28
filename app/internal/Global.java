@@ -8,7 +8,7 @@ import play.*;
 public class Global extends GlobalSettings {
     @Override
     public void onStart(Application app) {
-        /*Logger.info("Checking if the database schema is initialized...");
+        Logger.info("Checking if the database schema is initialized...");
         if(!CommonDB.tableExists("account_holders")) {
             Logger.info("Initializing the schema...");
             if(!CommonDB.initializeSchema()){
@@ -30,7 +30,7 @@ public class Global extends GlobalSettings {
         if(localInterface == null){
             Logger.error("Failed to connect to the local bitcoind instance... exiting.");
             System.exit(-1);
-        }*/
+        }
     }
 
     @Override
