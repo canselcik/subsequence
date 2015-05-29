@@ -34,6 +34,9 @@ public class Global extends GlobalSettings {
         }
         Logger.info("Found " + clusterCount + " clusters. Starting service...");
 
+        // TODO: Handle error gracefully and run it as a play-only node, which means we won't register ourselves
+        // if we don't have a local bitcoind instance, it will only help with the distribution of load if and only
+        // if the system is bottle-necked by play instances.#asdasd
         Logger.info("Checking if the local bitcoind node (defined by environment vars) is up...");
         BitcoindInterface localInterface = BitcoindNodes.getLocalNodeInferface();
         if(localInterface == null){
