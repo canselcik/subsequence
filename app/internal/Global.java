@@ -3,11 +3,14 @@ package internal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.database.CommonDB;
+import internal.database.NodeDB;
 import internal.rpc.BitcoindInterface;
 
+import internal.rpc.pojo.Info;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
+import play.Play;
 import play.libs.F;
 import play.mvc.*;
 
@@ -26,23 +29,58 @@ public class Global extends GlobalSettings {
             }
         }
 
+        // Checking if we have a local bitcoind node defined by the environment variables
+        play.Configuration conf = Play.application().configuration();
+        BitcoindInterface localInterface = BitcoindNodes.getLocalNodeInferface();
+        Info localNodeInfo = null;
+        if(localInterface != null){
+            try {
+                localNodeInfo = localInterface.getinfo();
+            } catch (Exception e){ e.printStackTrace(); }
+
+            if(localNodeInfo != null){
+                Logger.info("Successfully fetched getinfo() from bitcoind");
+
+                String humanReadableName = conf.getString("subseq.nodeinfo.name");
+                NodeDB.BitcoindNodeInfo nodeInfo = NodeDB.getNodeInformationByName(humanReadableName);
+                if(nodeInfo != null){
+                    boolean informationCorrect = conf.getString("subseq.nodeinfo.name").equals(nodeInfo.humanReadableName) &&
+                                                 conf.getString("subseq.nodeinfo.externalip").equals(nodeInfo.externalIP) &&
+                                                 conf.getString("subseq.localbitcoind.connString").equals(nodeInfo.connString) &&
+                                                 conf.getString("subseq.localbitcoind.rpcUsername").equals(nodeInfo.rpcUsername) &&
+                                                 conf.getString("subseq.localbitcoind.rpcPassword").equals(nodeInfo.rpcPassword) &&
+                                                 conf.getInt("subseq.nodeinfo.httpport").equals(nodeInfo.httpPort) &&
+                                                 conf.getInt("subseq.nodeinfo.bitcoindport").equals(nodeInfo.bitcoindPort);
+                    if(!informationCorrect) {
+                        Logger.error("Another node has been found with the name '" + humanReadableName + "\n" +
+                                "Either remove the row containing the node and re-run Subsequence or pick a new name for this node.");
+                        System.exit(-1);
+                    }
+                    else
+                        Logger.info("Database contains the correct information for this node.");
+                }
+
+                boolean registerSuccess = NodeDB.registerLocalNode();
+                if(registerSuccess)
+                    Logger.info("Added this node to the database");
+                else {
+                    Logger.error("An error occured when adding this node to the database. Exiting...");
+                    System.exit(-1);
+                }
+            }
+            else
+                Logger.info("Subsequence failed to connect to your local bitcoind instance. This server will run in API-only mode.");
+        }
+        else
+            Logger.info("Subsequence isn't configured to communicate with a local bitcoind instance. This server will run in API-only mode.");
+
         Logger.info("Fetching the available Bitcoind nodes...");
         int clusterCount = BitcoindNodes.getNodeCount();
         if(clusterCount == 0){
-            Logger.error("Found no nodes defined in your database. Exiting. Please restart after adding your Bitcoind nodes.");
+            Logger.error("Found no nodes defined in your database. You can't run an API-only node without any bitcoind nodes.");
             System.exit(-1);
         }
-        Logger.info("Found " + clusterCount + " clusters. Starting service...");
-
-        // TODO: Handle error gracefully and run it as a play-only node, which means we won't register ourselves
-        // if we don't have a local bitcoind instance, it will only help with the distribution of load if and only
-        // if the system is bottle-necked by play instances.#asdasd
-        Logger.info("Checking if the local bitcoind node (defined by environment vars) is up...");
-        BitcoindInterface localInterface = BitcoindNodes.getLocalNodeInferface();
-        if(localInterface == null){
-            Logger.error("Failed to connect to the local bitcoind instance... exiting.");
-            System.exit(-1);
-        }
+        Logger.info("Found " + clusterCount + " nodes. Starting service...");
     }
 
     @Override
@@ -83,6 +121,4 @@ public class Global extends GlobalSettings {
 
         return play.mvc.Results.internalServerError(res);
     }
-
-
 }
