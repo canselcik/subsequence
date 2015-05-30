@@ -12,3 +12,13 @@ libraryDependencies ++= Seq(
   cache,
   javaWs
 )
+
+
+import com.typesafe.sbt.SbtNativePackager._
+import NativePackagerKeys._
+
+maintainer in Linux := "Subsequence Project <contact@getsubsequence.com>"
+
+packageSummary in Linux := "A plug and play Bitcoin Payments Infrastructure"
+
+packageDescription := "Accept Bitcoin payments without relying on a third party service"
