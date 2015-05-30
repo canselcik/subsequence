@@ -7,5 +7,5 @@ fi
 # We know that the len(txid) >= 1
 echo "[$(date)] blocknotify.sh: $1" >> /home/main/notify.log
 
-RESPONSE=$(curl "http://localhost:9000/callback/blocknotify/$1")
+RESPONSE=$(curl "http://localhost/callback/blocknotify/$1")
 echo "   Result: $RESPONSE" >> /home/main/notify.log
