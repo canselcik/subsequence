@@ -59,13 +59,13 @@ public class Global extends GlobalSettings {
                     else
                         Logger.info("Database contains the correct information for this node.");
                 }
-
-                boolean registerSuccess = NodeDB.registerLocalNode();
-                if(registerSuccess)
-                    Logger.info("Added this node to the database");
                 else {
-                    Logger.error("An error occured when adding this node to the database. Exiting...");
-                    System.exit(-1);
+                    if(NodeDB.registerLocalNode())
+                        Logger.info("Added this node to the database");
+                    else {
+                        Logger.error("An error occured when adding this node to the database. Exiting...");
+                        System.exit(-1);
+                    }
                 }
             }
             else
