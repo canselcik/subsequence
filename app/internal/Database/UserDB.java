@@ -1,7 +1,7 @@
 package internal.database;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import internal.Global;
 import play.db.DB;
 
 import java.sql.Connection;
@@ -116,10 +116,9 @@ public class UserDB {
         }
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
     public static ObjectNode getUser(String name){
         Connection c = DB.getConnection();
-        ObjectNode root = mapper.createObjectNode();
+        ObjectNode root = Global.mapper.createObjectNode();
         try {
             PreparedStatement ps = c.prepareStatement("SELECT * FROM account_holders WHERE account_name = ?");
             ps.setString(1, name);

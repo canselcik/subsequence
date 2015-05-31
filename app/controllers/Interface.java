@@ -2,12 +2,12 @@ package controllers;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import internal.CaptchaGenerator;
+import internal.Global;
 import internal.database.NodeDB;
 import internal.database.TransactionDB;
 import internal.database.UserDB;
 import internal.rpc.BitcoindInterface;
 import internal.rpc.pojo.Info;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.Bitcoind;
 import internal.BitcoindNodes;
@@ -40,7 +40,7 @@ public class Interface extends Controller {
     public static Result getAddressesForUser(String name) {
         List<String> addresses = Bitcoind.getAddresses(name);
         if(addresses == null) {
-            ObjectNode res = mapper.createObjectNode();
+            ObjectNode res = Global.mapper.createObjectNode();
             res.put("error", "Failed to get addresses for the user. Bitcoind instance might be down.");
             return internalServerError(res);
         }
@@ -57,7 +57,7 @@ public class Interface extends Controller {
     public static Result getNodeStatus(Integer id) {
         Info info = Bitcoind.getInfo(id);
         if(info == null) {
-            ObjectNode res = mapper.createObjectNode();
+            ObjectNode res = Global.mapper.createObjectNode();
             res.put("error", "An error occurred while querying the cluster.");
             return internalServerError(res);
         }
@@ -72,15 +72,14 @@ public class Interface extends Controller {
         if(clusters == null)
             return internalServerError("An error occurred while fetching available clusters");
 
-        ObjectNode root = mapper.createObjectNode();
+        ObjectNode root = Global.mapper.createObjectNode();
         for(NodeDB.BitcoindNodeInfo info : clusters)
             root.put(String.valueOf(info.id), info.connString);
         return ok(root);
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
     public static Result sweepFunds(Integer id, String target) {
-        ObjectNode root = mapper.createObjectNode();
+        ObjectNode root = Global.mapper.createObjectNode();
         Bitcoind.Pair<String, Long> sweepResult = Bitcoind.sweepFunds(id, target);
         if(sweepResult == null) {
             root.put("error", "An error occurred while sweeping funds");
@@ -97,7 +96,7 @@ public class Interface extends Controller {
     }
 
     public static Result withdrawAmount(String name, long amount, String address) {
-        ObjectNode root = mapper.createObjectNode();
+        ObjectNode root = Global.mapper.createObjectNode();
         // Checking if the withdrawal amount is zero
         if(amount == 0){
             root.put("error", "You cannot withdraw zero SAT");
@@ -171,7 +170,7 @@ public class Interface extends Controller {
 
     public static Result incrementUserBalanceWithDescription(String name, long amount, String desc) {
         ObjectNode userInfo = UserDB.getUser(name);
-        ObjectNode ret = mapper.createObjectNode();
+        ObjectNode ret = Global.mapper.createObjectNode();
         if(userInfo == null || userInfo.has("error")) {
             ret.put("error", "Failed to retrieve user");
             return internalServerError(ret);
@@ -198,7 +197,7 @@ public class Interface extends Controller {
 
     public static Result decrementUserBalanceWithDescription(String name, long amount, String desc) {
         ObjectNode userInfo = UserDB.getUser(name);
-        ObjectNode ret = mapper.createObjectNode();
+        ObjectNode ret = Global.mapper.createObjectNode();
         if(userInfo == null || userInfo.has("error")) {
             ret.put("error", "Failed to retrieve user");
             return internalServerError(ret);

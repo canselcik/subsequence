@@ -1,8 +1,8 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.Bitcoind;
+import internal.Global;
 import internal.rpc.BitcoindInterface;
 import internal.rpc.pojo.RawTransaction;
 import internal.rpc.pojo.Transaction;
@@ -26,7 +26,6 @@ public class Callbacks extends Controller {
             this.depositInputs = depositInputs;
         }
     }
-    private static final ObjectMapper mapper = new ObjectMapper();
     private static ProcessDepositResult processDeposit(Transaction.Deposit d, String txHash, BitcoindInterface bi){
         RawTransaction rt = bi.getrawtransaction(txHash, 1);
         long confirmations = rt.getConfirmations();
@@ -35,7 +34,7 @@ public class Callbacks extends Controller {
         long relevantUserId = UserDB.getIdFromAccountName(d.account);
         long amountInSAT = d.amount.multiply(BigDecimal.valueOf(100000000)).longValueExact();
 
-        ObjectNode result = mapper.createObjectNode();
+        ObjectNode result = Global.mapper.createObjectNode();
         result.put("txId", txHash);
         if(relevantUserId < 0){
             result.put("error", "Related user account cannot be found");

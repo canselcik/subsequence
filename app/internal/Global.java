@@ -99,7 +99,7 @@ public class Global extends GlobalSettings {
         return F.Promise.promise(() -> errorHandler(t));
     }
 
-    public final ObjectMapper mapper = new ObjectMapper();
+    public static final ObjectMapper mapper = new ObjectMapper();
     private Result errorHandler(Throwable t){
         ObjectNode res = mapper.createObjectNode();
         if(t == null) {

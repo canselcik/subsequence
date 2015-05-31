@@ -1,8 +1,8 @@
 package internal.database;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import internal.Global;
 import internal.rpc.pojo.RawTransaction;
 import play.db.DB;
 
@@ -136,7 +136,6 @@ public class TransactionDB {
         }
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
     public static ArrayNode getTransactions(Long accountId){
         Connection c = DB.getConnection();
         try {
@@ -147,9 +146,9 @@ public class TransactionDB {
             if(rs == null)
                 return null;
 
-            ArrayNode nodes = mapper.createArrayNode();
+            ArrayNode nodes = Global.mapper.createArrayNode();
             while(rs.next()){
-                ObjectNode root = mapper.createObjectNode();
+                ObjectNode root = Global.mapper.createObjectNode();
                 root.put("internal_txid", rs.getLong("internal_txid"));
                 root.put("matched_user_id", rs.getLong("matched_user_id"));
                 root.put("inbound", rs.getBoolean("inbound"));

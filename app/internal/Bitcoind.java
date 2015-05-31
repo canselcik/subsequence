@@ -3,13 +3,11 @@ package internal;
 import internal.rpc.BitcoindInterface;
 import internal.rpc.pojo.Info;
 import internal.rpc.pojo.Transaction;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Bitcoind {
     public static final BigDecimal TX_FEE = BigDecimal.valueOf(0.0001);
@@ -64,7 +62,6 @@ public class Bitcoind {
         return btcdInterface.getaddressesbyaccount(user);
     }
 
-    private static final ObjectMapper mapper = new ObjectMapper();
     public static List<ObjectNode> getInboundTransactionsFromBitcoindNode(String user, int page){
         BitcoindInterface btcdInterface = BitcoindNodes.getInterface(user);
         if(btcdInterface == null)
@@ -75,7 +72,7 @@ public class Bitcoind {
         List<Transaction> a = btcdInterface.listtransactions(user, count, offset);
         List<ObjectNode> txs = new ArrayList<>();
         for(Transaction tx : a){
-            ObjectNode node = mapper.createObjectNode();
+            ObjectNode node = Global.mapper.createObjectNode();
             node.put("txid", tx.getTxid());
             node.put("amount", tx.getAmount());
             node.put("time", tx.getTime());
