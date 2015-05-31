@@ -1,6 +1,7 @@
 package internal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import internal.database.CommonDB;
 import internal.database.NodeDB;
@@ -113,7 +114,12 @@ public class Global extends GlobalSettings {
             StringWriter sw = new StringWriter();
             t.printStackTrace(new PrintWriter(sw));
             String st = sw.toString();
-            res.put("stacktrace", st);
+            String[] items = st.split("\n");
+            ArrayNode jsonItems = mapper.createArrayNode();
+            for(String item : items){
+                jsonItems.add(item.replace("\t", "  "));
+            }
+            res.put("stacktrace", jsonItems);
         } catch (Exception e) {
             e.printStackTrace();
             res.put("stacktrace", "An error occurred while getting the stacktrace");
