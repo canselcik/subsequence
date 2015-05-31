@@ -61,6 +61,9 @@ public class Interface extends Controller {
             res.put("error", "An error occurred while querying the cluster.");
             return internalServerError(res);
         }
+        BigDecimal balanceBTC = info.getBalance();
+        BigDecimal balanceSAT = balanceBTC.multiply(BigDecimal.valueOf(100000000));
+        info.setBalance(balanceSAT);
         return ok(Json.toJson(info));
     }
 
