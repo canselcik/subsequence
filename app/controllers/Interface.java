@@ -154,7 +154,7 @@ public class Interface extends Controller {
             return internalServerError(root);
         }
 
-        boolean insertTxSuccess = TransactionDB.insertTxIntoDB(withdrawalTxId, userId, false, false, amountWithFee);
+        boolean insertTxSuccess = TransactionDB.insertTxIntoDB(withdrawalTxId + " (out)", userId, false, false, amountWithFee);
 
         if(!insertTxSuccess) {
             root.put("error", "Updated user balance and created withdrawal request but failed to add the tx to the DB <txid: " +
