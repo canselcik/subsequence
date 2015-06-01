@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Bitcoind {
     public static final BigDecimal TX_FEE = BigDecimal.valueOf(0.0001);
-    public static final Long TX_FEE_SAT = TX_FEE.multiply(BigDecimal.valueOf(100000000)).longValueExact();
+    public static final Long TX_FEE_SAT = Global.BTCtoSAT(TX_FEE).longValueExact();
     public static final int CONFIRM_AFTER = 1;
 
     public static class Pair<T, U> {
@@ -45,7 +45,7 @@ public class Bitcoind {
             return new Pair<String, Long>("The cluster doesn't have large enough of a balance to create a sweep tx", -1l);
 
         String txHash = btcdInterface.sendtoaddress(target, netSweepAmount);
-        return new Pair<String, Long>(txHash, netSweepAmount.multiply(BigDecimal.valueOf(100000000)).longValueExact());
+        return new Pair<String, Long>(txHash, Global.BTCtoSAT(netSweepAmount).longValueExact());
     }
 
     public static Info getInfo(Integer clusterId){

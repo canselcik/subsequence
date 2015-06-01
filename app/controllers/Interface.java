@@ -65,9 +65,9 @@ public class Interface extends Controller {
         BigDecimal payTxFeeBTC = info.getPaytxfee();
         BigDecimal relayFeeBTC = info.getRelayfee();
 
-        BigDecimal balanceSAT = balanceBTC.multiply(BigDecimal.valueOf(100000000));
-        BigDecimal payTxFeeSAT = payTxFeeBTC.multiply(BigDecimal.valueOf(100000000));
-        BigDecimal relayFeeSAT = relayFeeBTC.multiply(BigDecimal.valueOf(100000000));
+        BigDecimal balanceSAT = Global.BTCtoSAT(balanceBTC);
+        BigDecimal payTxFeeSAT = Global.BTCtoSAT(payTxFeeBTC);
+        BigDecimal relayFeeSAT = Global.BTCtoSAT(relayFeeBTC);
 
         info.setBalance(balanceSAT);
         info.setPaytxfee(payTxFeeSAT);
@@ -143,8 +143,8 @@ public class Interface extends Controller {
 
         // Getting the balance for the cluster
         long amountWithFee = amount + Bitcoind.TX_FEE_SAT;
-        BigDecimal amountToWithdrawInBTC = BigDecimal.valueOf(amount).divide( BigDecimal.valueOf(100000000) );
-        BigDecimal amountToWithdrawInBTCwithFee = BigDecimal.valueOf(amountWithFee).divide( BigDecimal.valueOf(100000000) );
+        BigDecimal amountToWithdrawInBTC = Global.SATtoBTC( BigDecimal.valueOf(amount) );
+        BigDecimal amountToWithdrawInBTCwithFee = Global.SATtoBTC(BigDecimal.valueOf(amountWithFee));
         // If the balance is less than the amount to be withdrawn + fee
         if(balance.compareTo(amountToWithdrawInBTCwithFee) == -1){
             root.put("error", "The assigned cluster doesn't have the balance to allow this withdrawal. No withdrawal has been made.");

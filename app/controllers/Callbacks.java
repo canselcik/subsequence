@@ -32,7 +32,7 @@ public class Callbacks extends Controller {
         boolean confirmed = (confirmations >= Bitcoind.CONFIRM_AFTER);
 
         long relevantUserId = UserDB.getIdFromAccountName(d.account);
-        long amountInSAT = d.amount.multiply(BigDecimal.valueOf(100000000)).longValueExact();
+        long amountInSAT = Global.BTCtoSAT(d.amount).longValueExact();
 
         ObjectNode result = Global.mapper.createObjectNode();
         result.put("txId", txHash);

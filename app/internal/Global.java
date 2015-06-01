@@ -14,6 +14,7 @@ import play.mvc.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 
 public class Global extends GlobalSettings {
     @Override
@@ -123,4 +124,19 @@ public class Global extends GlobalSettings {
 
         return play.mvc.Results.internalServerError(res);
     }
+
+    public static BigDecimal BTCtoSAT(BigDecimal btc){
+        BigDecimal sat = null;
+        try { sat = btc.multiply(BigDecimal.valueOf(100000000)); }
+        catch (Exception e) { e.printStackTrace(); }
+        return sat;
+    }
+
+    public static BigDecimal SATtoBTC(BigDecimal sat){
+        BigDecimal btc = null;
+        try { btc = sat.divide(BigDecimal.valueOf(100000000)); }
+        catch (Exception e) { e.printStackTrace(); }
+        return btc;
+    }
+
 }
