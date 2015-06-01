@@ -22,6 +22,6 @@ packageSummary := "A scalable plug-and-play Bitcoin Payments Infrastructure"
 
 packageDescription := "Accept Bitcoin payments without relying on a third party service"
 
-javaOptions in Linux ++= Seq(
+javaOptions in Debian ++= Seq(
   "-Dhttp.port=80", "-Dconfig.file=/etc/subsequence/prod.conf", "-Dpidfile.path=/var/run/subsequence/play.pid"
 )
