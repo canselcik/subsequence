@@ -15,6 +15,7 @@ libraryDependencies ++= Seq(
   javaWs
 )
 
+daemonUser in Linux := "root"
 
 maintainer := "Subsequence Project <info@subsequence.io>"
 
