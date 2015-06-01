@@ -85,12 +85,12 @@ public class NodeDB {
     public static boolean registerLocalNode(){
         play.Configuration conf = Play.application().configuration();
 
-        String humanReadableName = conf.getString("subseq.nodeinfo.name");
-        String externalIP        = conf.getString("subseq.nodeinfo.externalip");
-        String rpcUsername       = conf.getString("subseq.localbitcoind.rpcUsername");
-        String rpcPassword       = conf.getString("subseq.localbitcoind.rpcPassword");
-        Integer httpPort         = conf.getInt("subseq.nodeinfo.httpport");
-        Integer bitcoindPort     = conf.getInt("subseq.nodeinfo.bitcoindport");
+        String humanReadableName = conf.getString("subseq.name");
+        String externalIP        = conf.getString("subseq.waniphost");
+        String rpcUsername       = conf.getString("subseq.rpcUsername");
+        String rpcPassword       = conf.getString("subseq.rpcPassword");
+        Integer httpPort         = conf.getInt("subseq.httpport");
+        Integer bitcoindPort     = conf.getInt("subseq.bitcoindport");
         if(humanReadableName == null || externalIP == null || rpcUsername == null || rpcPassword == null ||
                     httpPort == null || bitcoindPort == null) {
             Logger.info("Environment variables aren't set for Subsequence function.");
