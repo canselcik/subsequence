@@ -23,4 +23,6 @@ packageSummary in Linux := "A scalable plug-and-play Bitcoin Payments Infrastruc
 
 packageDescription := "Accept Bitcoin payments without relying on a third party service"
 
-javaOptions in Universal ++= Seq("subsequence", "--Dhttp.port=80", "-Dconfig.file=/etc/subsequence/prod.conf")
+bashScriptExtraDefines += "addJava \"-Dhttp.port=80 -Dconfig.file=/etc/subsequence/prod.conf\""
+
+//javaOptions in Linux ++= Seq("subsequence", "--", "-Dconfig.file=")
