@@ -17,8 +17,15 @@ libraryDependencies ++= Seq(
 import com.typesafe.sbt.SbtNativePackager._
 import NativePackagerKeys._
 
-maintainer in Linux := "Subsequence Project <contact@getsubsequence.com>"
+maintainer in Linux := "Subsequence Project <info@subsequence.io>"
 
-packageSummary in Linux := "A plug and play Bitcoin Payments Infrastructure"
+packageSummary in Linux := "A scalable plug-and-play Bitcoin Payments Infrastructure"
 
 packageDescription := "Accept Bitcoin payments without relying on a third party service"
+
+mappings in Universal += {
+  // we are using the reference.conf as default application.conf
+  // the user can override settings here
+  val conf = (resourceDirectory in Compile).value / "reference.conf"
+  conf -> "conf/application.conf"
+}
