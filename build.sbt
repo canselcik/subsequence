@@ -26,6 +26,6 @@ packageDescription := "Accept Bitcoin payments without relying on a third party 
 mappings in Universal += {
   // we are using the reference.conf as default application.conf
   // the user can override settings here
-  val conf = (resourceDirectory in Compile).value / "reference.conf"
-  conf -> "conf/application.conf"
+  val conf = (resourceDirectory in Compile).value / "application.conf"
+  conf -> "/etc/subsequence/application.conf"
 }
