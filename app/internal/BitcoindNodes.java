@@ -5,6 +5,7 @@ import internal.database.UserDB;
 import internal.rpc.BitcoindClientFactory;
 import internal.rpc.BitcoindInterface;
 
+import play.Logger;
 import play.Play;
 
 import java.net.URL;
@@ -35,9 +36,17 @@ public class BitcoindNodes {
             return localInterfaceFactory.getClient();
         try {
             play.Configuration conf = Play.application().configuration();
-            String connString = conf.getString("subseq.localbitcoind.connString");
-            String rpcUsername = conf.getString("subseq.localbitcoind.rpcUsername");
-            String rpcPassword = conf.getString("subseq.localbitcoind.rpcPassword");
+
+            String externalIP = conf.getString("subseq.waniphost");
+            Integer bitcoindPort = conf.getInt("subseq.bitcoindport");
+            if(externalIP == null || bitcoindPort == null) {
+                Logger.error("Local bitcoind configuration not defined but getLocalNodeInterface() method is called");
+                return null;
+            }
+
+            String connString = "http://" + externalIP + ":" + bitcoindPort;
+            String rpcUsername = conf.getString("subseq.rpcUsername");
+            String rpcPassword = conf.getString("subseq.rpcPassword");
             if(connString == null || rpcUsername == null || rpcPassword == null)
                 return null;
             localInterfaceFactory = new BitcoindClientFactory(new URL(connString), rpcUsername, rpcPassword);

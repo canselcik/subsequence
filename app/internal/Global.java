@@ -42,13 +42,12 @@ public class Global extends GlobalSettings {
                 String humanReadableName = conf.getString("subseq.nodeinfo.name");
                 NodeDB.BitcoindNodeInfo nodeInfo = NodeDB.getNodeInformationByName(humanReadableName);
                 if(nodeInfo != null){
-                    boolean informationCorrect = conf.getString("subseq.nodeinfo.name").equals(nodeInfo.humanReadableName) &&
-                                                 conf.getString("subseq.nodeinfo.externalip").equals(nodeInfo.externalIP) &&
-                                                 conf.getString("subseq.localbitcoind.connString").equals(nodeInfo.connString) &&
-                                                 conf.getString("subseq.localbitcoind.rpcUsername").equals(nodeInfo.rpcUsername) &&
-                                                 conf.getString("subseq.localbitcoind.rpcPassword").equals(nodeInfo.rpcPassword) &&
-                                                 conf.getInt("subseq.nodeinfo.httpport").equals(nodeInfo.httpPort) &&
-                                                 conf.getInt("subseq.nodeinfo.bitcoindport").equals(nodeInfo.bitcoindPort);
+                    boolean informationCorrect = conf.getString("subseq.name").equals(nodeInfo.humanReadableName) &&
+                                                 conf.getString("subseq.waniphost").equals(nodeInfo.externalIP) &&
+                                                 conf.getString("subseq.rpcUsername").equals(nodeInfo.rpcUsername) &&
+                                                 conf.getString("subseq.rpcPassword").equals(nodeInfo.rpcPassword) &&
+                                                 conf.getInt("subseq.httpport").equals(nodeInfo.httpPort) &&
+                                                 conf.getInt("subseq.bitcoindport").equals(nodeInfo.bitcoindPort);
                     if(!informationCorrect) {
                         Logger.error("Another node has been found with the name '" + humanReadableName + "\n" +
                                 "Either remove the row containing the node and re-run Subsequence or pick a new name for this node.");

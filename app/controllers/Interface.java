@@ -83,7 +83,7 @@ public class Interface extends Controller {
 
         ObjectNode root = Global.mapper.createObjectNode();
         for(NodeDB.BitcoindNodeInfo info : clusters)
-            root.put(String.valueOf(info.id), info.connString);
+            root.put(String.valueOf(info.id), "http://" + info.externalIP + ":" + info.bitcoindPort);
         return ok(root);
     }
 
