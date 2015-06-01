@@ -1,5 +1,6 @@
 #!/bin/bash
 if [ ${#1} -lt 1 ]; then
+  echo "Invalid arguments"
   exit -1
 fi
 
