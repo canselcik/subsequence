@@ -64,14 +64,15 @@ public class Interface extends Controller {
         BigDecimal balanceBTC = info.getBalance();
         BigDecimal payTxFeeBTC = info.getPaytxfee();
         BigDecimal relayFeeBTC = info.getRelayfee();
+
         BigDecimal balanceSAT = balanceBTC.multiply(BigDecimal.valueOf(100000000));
         BigDecimal payTxFeeSAT = payTxFeeBTC.multiply(BigDecimal.valueOf(100000000));
         BigDecimal relayFeeSAT = relayFeeBTC.multiply(BigDecimal.valueOf(100000000));
 
-        // paytxfee  relayfee
         info.setBalance(balanceSAT);
         info.setPaytxfee(payTxFeeSAT);
         info.setRelayfee(relayFeeSAT);
+
         return ok(Json.toJson(info));
     }
 
