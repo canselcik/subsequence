@@ -1,3 +1,32 @@
 #!/bin/bash
+if [ ${#1} -lt 1 ]; then
+  exit -1
+fi
 
-echo "TEST"
+isdecimal() {
+  num=$(printf '%s' "$1" | sed "s/^0*\([1-9]\)/\1/; s/'/^/")
+  test "$num" && printf '%f' "$num" >/dev/null 2>&1
+}
+
+get_local_http_port() {
+  port_line=$(grep httpport /etc/subsequence/prod.conf)
+  if [ $? -ne 0 ]; then
+    echo "Cannot find /etc/subsequence/prod.conf to determine the local HTTP port"
+    exit -1
+  fi
+  ssport=$(cut -d "=" -f 2 <<< $port_line)
+  isnum=$(isdecimal $ssport)
+  if [ $? -ne 0 ]; then
+    echo "Syntax error in /etc/subsequence/prod.conf"
+    exit -1
+  fi
+}
+
+# Now $ssport contains the port for the local Subsequence Instance
+get_local_http_port
+
+# We know that the len(txid) >= 1
+echo "[$(date)] subsequence-txnotify: $1" >> /tmp/notify.log
+
+RESPONSE=$(curl "http://localhost:$ssport/callback/txnotify/$1")
+echo "   Result: $RESPONSE" >> /home/main/notify.log
