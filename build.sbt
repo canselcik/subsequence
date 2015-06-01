@@ -23,9 +23,4 @@ packageSummary in Linux := "A scalable plug-and-play Bitcoin Payments Infrastruc
 
 packageDescription := "Accept Bitcoin payments without relying on a third party service"
 
-mappings in Universal += {
-  // we are using the reference.conf as default application.conf
-  // the user can override settings here
-  val conf = (resourceDirectory in Compile).value / "application.conf"
-  conf -> "/etc/subsequence/application.conf"
-}
+javaOptions in Universal ++= Seq("subsequence", "--Dhttp.port=80", "-Dconfig.file=/etc/subsequence/prod.conf")
