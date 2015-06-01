@@ -23,7 +23,6 @@ packageSummary in Linux := "A scalable plug-and-play Bitcoin Payments Infrastruc
 
 packageDescription := "Accept Bitcoin payments without relying on a third party service"
 
-daemonUser in Linux := "root"
 javaOptions in Linux ++= Seq(
   "-Dhttp.port=80", "-Dconfig.file=/etc/subsequence/prod.conf", "-Dpidfile.path=/var/run/subsequence/play.pid"
 )
